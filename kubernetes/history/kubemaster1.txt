@@ -1,0 +1,106 @@
+Installing docker:
+  sudo groupadd docker
+  sudo usermod -aG docker centos
+
+  yum install -y docker
+  systemctl enable docker && systemctl start docker
+
+SSH connectivity:
+  ssh -l root 192.168.77.11
+  ssh -l root 192.168.77.12
+
+Disabling SELinux
+  setenforce 0
+  sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+
+Kernel params for Kubernetes:
+  cat <<EOF >  /etc/sysctl.d/k8s.conf
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  EOF
+
+Kubernetes repository
+  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+  [kubernetes]
+  name=Kubernetes
+  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+  enabled=1
+  gpgcheck=1
+  repo_gpgcheck=1
+  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  exclude=kube*
+  EOF
+
+Installing kubernetes:
+  yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+  systemctl enable kubelet && systemctl start kubelet
+
+sysctl --system
+
+Disabling swap memory:
+  swapoff -a
+  sed -i '/swap/d' /etc/fstab
+
+Creating master node:
+  kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.77.10
+
+Configuring kubectl for centos user (regular user)
+  su - centos
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Getting token to join nodes:
+  kubeadm token create --print-join-command
+
+Configuring network:
+  cat <<EOF >  /etc/sysctl.d/k8s-flannel.conf
+  net.bridge.bridge-nf-call-iptables = 1
+  EOF
+
+  kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+
+Checking if everything is working:
+  [centos@kubemaster ~]$ kubectl get pods --all-namespaces
+  NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE
+  kube-system   coredns-86c58d9df4-5szcn             1/1     Running   0          31m
+  kube-system   coredns-86c58d9df4-vftft             1/1     Running   0          31m
+  kube-system   etcd-kubemaster                      1/1     Running   0          31m
+  kube-system   kube-apiserver-kubemaster            1/1     Running   0          30m
+  kube-system   kube-controller-manager-kubemaster   1/1     Running   0          31m
+  kube-system   kube-flannel-ds-amd64-28j29          1/1     Running   0          15m
+  kube-system   kube-proxy-kxs7j                     1/1     Running   0          31m
+  kube-system   kube-scheduler-kubemaster            1/1     Running   0          31m
+
+  [root@kubemaster ~]# docker ps
+  CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS               NAMES
+  b424776d82c2        f59dcacceff4           "/coredns -conf /e..."   15 minutes ago      Up 15 minutes                           k8s_coredns_coredns-86c58d9df4-vftft_kube-system_8327b4b7-0fa0-11e9-9e16-080027dfb17a_0
+  5f6ea9772f90        f59dcacceff4           "/coredns -conf /e..."   15 minutes ago      Up 15 minutes                           k8s_coredns_coredns-86c58d9df4-5szcn_kube-system_83293e88-0fa0-11e9-9e16-080027dfb17a_0
+  756106f71d17        k8s.gcr.io/pause:3.1   "/pause"                 15 minutes ago      Up 15 minutes                           k8s_POD_coredns-86c58d9df4-vftft_kube-system_8327b4b7-0fa0-11e9-9e16-080027dfb17a_0
+  7d48368091cb        k8s.gcr.io/pause:3.1   "/pause"                 15 minutes ago      Up 15 minutes                           k8s_POD_coredns-86c58d9df4-5szcn_kube-system_83293e88-0fa0-11e9-9e16-080027dfb17a_0
+  95630f0b83ce        f0fad859c909           "/opt/bin/flanneld..."   15 minutes ago      Up 15 minutes                           k8s_kube-flannel_kube-flannel-ds-amd64-28j29_kube-system_ca298b3f-0fa2-11e9-9e16-080027dfb17a_0
+  5e204e7e47bc        k8s.gcr.io/pause:3.1   "/pause"                 16 minutes ago      Up 16 minutes                           k8s_POD_kube-flannel-ds-amd64-28j29_kube-system_ca298b3f-0fa2-11e9-9e16-080027dfb17a_0
+  8ac4b3d3d16f        fdb321fd30a0           "/usr/local/bin/ku..."   32 minutes ago      Up 32 minutes                           k8s_kube-proxy_kube-proxy-kxs7j_kube-system_83132574-0fa0-11e9-9e16-080027dfb17a_0
+  9e33769c94a4        k8s.gcr.io/pause:3.1   "/pause"                 32 minutes ago      Up 32 minutes                           k8s_POD_kube-proxy-kxs7j_kube-system_83132574-0fa0-11e9-9e16-080027dfb17a_0
+  5b3de9c5292b        40a63db91ef8           "kube-apiserver --..."   32 minutes ago      Up 32 minutes                           k8s_kube-apiserver_kube-apiserver-kubemaster_kube-system_470902be50c96af7d2acfa3a00760fce_0
+  967ed0f3bae1        3cab8e1b9802           "etcd --advertise-..."   32 minutes ago      Up 32 minutes                           k8s_etcd_etcd-kubemaster_kube-system_1bf9cdb1eb58dff1ece6ed649cea880b_0
+  18461357fce9        26e6f1db2a52           "kube-controller-m..."   32 minutes ago      Up 32 minutes                           k8s_kube-controller-manager_kube-controller-manager-kubemaster_kube-system_d4ff37ee76fe761a28f11175fd1c384e_0
+  ec2d3898e0dc        ab81d7360408           "kube-scheduler --..."   32 minutes ago      Up 32 minutes                           k8s_kube-scheduler_kube-scheduler-kubemaster_kube-system_44b569a35761491825f4e7253fbf0543_0
+  f0ad0c023c14        k8s.gcr.io/pause:3.1   "/pause"                 32 minutes ago      Up 32 minutes                           k8s_POD_kube-apiserver-kubemaster_kube-system_470902be50c96af7d2acfa3a00760fce_0
+  d4f7d850c756        k8s.gcr.io/pause:3.1   "/pause"                 32 minutes ago      Up 32 minutes                           k8s_POD_etcd-kubemaster_kube-system_1bf9cdb1eb58dff1ece6ed649cea880b_0
+  f64e5563181f        k8s.gcr.io/pause:3.1   "/pause"                 32 minutes ago      Up 32 minutes                           k8s_POD_kube-controller-manager-kubemaster_kube-system_d4ff37ee76fe761a28f11175fd1c384e_0
+  953def0a85cb        k8s.gcr.io/pause:3.1   "/pause"                 32 minutes ago      Up 32 minutes                           k8s_POD_kube-scheduler-kubemaster_kube-system_44b569a35761491825f4e7253fbf0543_0
+
+Reset kubernetes configurations:
+  kubeadm reset
+    undo kubeadm init command
+
+netstat -atnp | grep 6443
+
+Getting data about the kubernetes cluster:
+  kubectl get nodes
+  kubectl options
+  kubectl -s 192.168.77.10 get nodes
+  kubectl -s 192.168.77.10: get nodes des
+  kubectl get nodes ep 6443
+  kubectl -s 192.168.77.10:8080 get nodes

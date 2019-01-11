@@ -1,0 +1,32 @@
+1  ls /srv/
+2  ls /srv/salt/
+3  ls /root/
+4  curl -L https://bootstrap.saltstack.com -o install_salt.sh 
+5  sh install_salt.sh -P -M -N
+6  cd /etc/salt/pki/master/
+7  ls
+8  ls -lh master.p*
+9  rm master.p*
+10  mv /root/master.p* .
+11  ls
+12  ls -lh
+13  systemctl restart master
+14  systemctl restart salt-master
+15  salt-key -L
+16  salt-key -A
+17  salt '*' test.ping
+18  systemctl stop salt-master
+19  salt '*' test.ping
+20  systemctl start salt-master
+21  salt '*' test.ping
+22  salt '*' mine.update
+23  salt '*' test.ping
+24  salt '*' mine.update
+25  salt '*' test.ping
+26  salt-key -L
+27  salt-key -F
+28  salt-key -A
+29  ls /srv/salt/top.sls
+30  ls /srv/salt/
+31  systemctl stop salt-master
+32  history

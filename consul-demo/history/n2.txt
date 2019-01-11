@@ -1,0 +1,103 @@
+1  vi /etc/ssh/sshd_config
+2  vi /etc/ssh/sshd_config
+3  /etc/init.d/ssh restart
+4  passwd root
+5  ./consul agent -ui -data-dir /tmp/consul -client 172.20.20.11 -join 172.20.20.10 -advertise 172.20.20.11
+6  consul agent -ui -data-dir /tmp/consul -client 172.20.20.11 -join 172.20.20.10 -advertise 172.20.20.11
+7  consul agent -ui -data-dir /tmp/consul -client 172.20.20.11 -join 172.20.20.10 -advertise 172.20.20.11
+8  consul agent -ui -data-dir /tmp/consul -client 172.20.20.11 -join 172.20.20.10 -advertise 172.20.20.11
+9  consul agent --help
+10  mkdir /opt/consul
+11  vi /opt/consul/config.json
+12  consul agent -ui -data-dir /opt/consul -config-file=/opt/consul/config.json -client 172.20.20.11 -join 172.20.20.10 -advertise 172.20.20.11
+13  consul agent -ui -data-dir /opt/consul -config-file=/opt/consul/config.json -client 172.20.20.11 -join 172.20.20.10 -advertise 172.20.20.11
+14  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+15  curl --request PUT http://172.20.20.11:8500/v1/acl/bootstrap
+16  history | grep curl
+17  ip addr show
+18  history
+
+
+
+
+1  consult agent -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d
+2  consul agent -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d
+3  consul agent -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d -ui
+4  consul agent -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d -ui -advertise 182.20.20.11
+5  consul agent -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d -ui -advertise 172.20.20.11
+6  consul agent -ui -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d
+7  consul agent -ui --h
+8  consul agent -ui -data-dir=/tmp/consul -node=agent-two -bind=172.20.20.11 -enable-script-checks=true -config-dir=/etc/consul.d -client=172.20.20.11
+9  consult members
+10  consul members
+11  echo '{"check": {"name": "ping",
+12    "script": "ping -c1 google.com >/dev/null", "interval": "30s"}}'   >/etc/consul.d/ping.json
+13  echo '{"service": {"name": "web", "tags": ["rails"], "port": 80,
+14    "check": {"script": "curl localhost >/dev/null 2>&1", "interval": "10s"}}}'   >/etc/consul.d/web.json
+15  cat /etc/consul.d/ping.json
+16  cat /etc/consul.d/web.json
+17  ps aux | grep consult
+18  ps aux | grep consul
+19  kill SIGHUP 1878
+20  kill -SIGHUP 1878
+21  ps aux | grep consul
+22  kill -s SIGHUP 1878
+23  consul members
+24  ps aux | grep consul
+25  kill -s SIGHUP 1950
+26  consul members
+27  curl http://localhost:8500/v1/health/state/critical
+28  dig @127.0.0.1 -p 8600 web.service.consul
+29  dig @127.0.0.1 -p 8600 web.service.consul SRV
+30  dig @127.0.0.1 -p 8600 web.service.consul SVR
+31  dig @127.0.0.1 -p 8600 web.service.consul SRV
+32  cat /etc/consul.d/web.json
+33  sudo yum install httpd
+34  apt install httpd
+35  sudo apt install httpd
+36  sudo apt install apache2
+37  curl http://localhost:8500/v1/health/state/critical
+38  consult kv get redis/config/minconns
+39  consul kv get redis/config/minconns
+40  consul kv put redis/config/minconns 1
+41  consul kv put redis/config/maxconns 25
+42  consul kv put -flags=42 redis/config/maxconns abcd1234
+43  consul kv get redis/config/minconns
+44  consul kv get redis/config/maxconns
+45  consul kv get -detailed redis/config/maxconns
+46  consul kv put redis/config/maxconns 25
+47  consul kv put -flags=42 redis/config/admin abcd1234
+48  consul kv get -recurse
+49  consul kv delete -recurse
+50  consul kv put redis/config/maxconns 25
+51  consul kv put redis/config/maxconns 26
+52  consul kv put redis/config/maxconns 267
+53  consul kv get redis/config/maxconns 267
+54  consul kv get redis/config/maxconns
+55  consul kv put -cas -modify-index=123 foo bar
+56  consul kv put foo bar
+57  consul kv put -cas -modify-index=123 foo bar
+58  consul kv get foo bar
+59  consul kv get foo
+60  consul kv get foo/bar/zoo
+61  consul kv put
+62  consul kv get foo/bar/zoo alskdfja;lskdjf
+63  consul kv put foo/bar/zoo alskdfjaskdjf
+64  consul kv get -recurse
+65  consul kv put -cas -modify-index=123 my var
+66  consul kv put -cas my var
+67  consul kv put -cas -modify-index=1 my var
+68  consult agent -ui
+69  consul agent -ui
+70  ip addr show
+71  consul agent -ui -advertise=172.20.20.11
+72  consul agent -ui -advertise 172.20.20.11
+73  consul agent -ui -advertise 172.20.20.11 -data-dir=/tmp/consul
+74  consul kv get -recurse
+75  ps aux | grep 8500
+76  netstat -atpn | grep 8500
+77  netstat -atpn
+78  netstat -atpn | grep consul
+79  sudo su
+80  sudo su
+81  history

@@ -1,0 +1,95 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.define "samba-ad" do |ad|
+    ad.vm.box = "centos/7"
+    ad.vm.network "private_network", ip: "192.168.100.100"
+    ad.vm.provision "shell" do |s|
+       ssh_pub_key = File.readlines("keys/id_rsa.pub").first.strip
+       s.inline = <<-SHELL
+         yum upgrade kernel -y
+         echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+         mkdir /root/.ssh
+         echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+       SHELL
+     end
+
+  end
+
+  # realm join
+  config.vm.define "samba-node1" do |node1|
+    node1.vm.box = "centos/7"
+    node1.vm.network "private_network", ip: "192.168.100.11"
+    node1.vm.provision "shell" do |s|
+       ssh_pub_key = File.readlines("keys/id_rsa.pub").first.strip
+       s.inline = <<-SHELL
+         echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+         mkdir /root/.ssh
+         echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+       SHELL
+   end
+
+  end
+
+  # adcli join
+  config.vm.define "samba-node2" do |node2|
+    node2.vm.box = "centos/6"
+    node2.vm.network "private_network", ip: "192.168.100.12"
+    node2.vm.provision "shell" do |s|
+       ssh_pub_key = File.readlines("keys/id_rsa.pub").first.strip
+       s.inline = <<-SHELL
+         echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+         mkdir /root/.ssh
+         echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+       SHELL
+    end
+  end
+
+  # netcracker docs - not working - samba4 is incompatible with samba client version
+  config.vm.define "samba-node3" do |node3|
+    node3.vm.box = "bento/centos-5"
+    node3.vm.network "private_network", ip: "192.168.100.13"
+  end
+
+  # netcracker docs - works fine, but this needs more research
+  config.vm.define "samba-node4" do |node|
+    node.vm.box = "centos/6"
+    node.vm.network "private_network", ip: "192.168.100.14"
+    node.vm.provision "shell" do |s|
+       ssh_pub_key = File.readlines("keys/id_rsa.pub").first.strip
+       s.inline = <<-SHELL
+         echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+         mkdir /root/.ssh
+         echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+       SHELL
+    end
+  end
+
+  # redhat docs 6.3 - sssd enhanced capabilities
+  config.vm.define "samba-node5" do |node5|
+    node5.vm.box = "centos/6"
+    node5.vm.network "private_network", ip: "192.168.100.15"
+  end
+
+  # redhat docs 6.3 - sssd enhanced capabilities
+  config.vm.define "samba-node6" do |node6|
+    node6.vm.box = "centos/6"
+    node6.vm.network "private_network", ip: "192.168.100.16"
+  end
+
+  config.vm.define "samba-node7" do |node7|
+    node7.vm.box = "windows"
+    node7.vm.network "private_network", ip: "192.168.100.17"
+  end
+
+  config.vm.define "samba-node8" do |node|
+    node.vm.box = "centos/6"
+    node.vm.network "private_network", ip: "192.168.100.18"
+  end
+
+end

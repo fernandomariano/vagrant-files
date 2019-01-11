@@ -1,0 +1,31 @@
+1  free -m
+2  curl -L https://bootstrap.saltstack.com -o install_salt.sh
+3  sh install_salt.sh -P -A saltmaster-ce1
+4  vi /etc/hosts
+5  systemctl restart salt-minion
+6  salt-call --local key.finger
+7  ping saltmaster-ce1
+8  ls /etc/salt/pki/minion/
+9  cat /etc/salt/pki/minion/minion.pub
+10  vi /etc/salt/minion.d/grains.conf
+11  vi /etc/salt/minion.d/mine.conf
+12  ifconfig
+13  vi /etc/salt/minion.d/mine.conf
+14  systemctl restart salt-minion
+15  vi /etc/hosts
+16  systemctl restart salt-minion
+17  vi /etc/salt/minion.d/99-master-address.conf
+18  systemctl restart salt-minion
+19  cat /etc/salt/minion.d/99-master-address.conf
+20  systemctl restart salt-minion
+21  htop
+22  salt-call --local pkg.list_upgrades refresh=true
+23  salt-call pkg.list_upgrades refresh=true
+24  salt-call --local pkg.list_upgrades refresh=true
+25  systemctl status mariadb
+26  systemctl start mariadb
+27  systemctl status mariadb
+28  history
+29  cat /etc/hosts
+30  vi /etc/my.cnf.d/server.cnf
+31  history

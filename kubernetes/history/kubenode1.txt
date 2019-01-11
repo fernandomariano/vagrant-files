@@ -1,0 +1,39 @@
+ssh -l root 192.168.77.10
+yum install -y docker
+systemctl enable docker && systemctl start docker
+
+setenforce 0
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kube*
+EOF
+
+Kernel params for Kubernetes:
+  cat <<EOF >  /etc/sysctl.d/k8s.conf
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  EOF
+
+Installing kubernetes:
+  yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+  systemctl enable kubelet && systemctl start kubelet
+
+Disabling swap memory:
+  swapoff -a
+  sed -i '/swap/d' /etc/fstab
+
+Reload sysctl configs:
+  sysctl --system
+
+Join the kubernetes cluster:
+  kubeadm join 192.168.77.10:6443 --token 1kiaih.9rx9fqczri8pmloc --discovery-token-ca-cert-hash sha256:13886bb06552a9eaf462ced72b653ff55449e3a5e10bba7b3b592d2c88f001a1
+
+Reset kubernetes configuration
+  kubeadm reset - that is not the proper way, you should drain the node first

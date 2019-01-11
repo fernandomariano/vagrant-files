@@ -1,0 +1,34 @@
+1  curl http://localhost:9100/metrics
+2  curl http://localhost:9100/metrics | grep "node_"
+3  curl http://localhost:9100/metrics
+4  curl http://localhost:9100/metrics  | more
+5  curl http://localhost:9100/metrics  | grep $node
+6  curl http://localhost:9100/metrics  | grep ^node
+7  curl http://localhost:9090/metrics
+8  cd /usr/local/src/
+9  wget https://github.com/prometheus/prometheus/releases/download/v2.6.0/prometheus-2.6.0.linux-amd64.tar.gz
+10  ls
+11  tar zxvpf prometheus-2.6.0.linux-amd64.tar.gz
+12  cd prometheus-2.6.0.linux-amd64/
+13  ls
+14  ./prometheus --help
+15  ls
+16  cat prometheus.yml
+17  ./prometheus --config.file=protheus.yml
+18  ./prometheus --config.file=prometheus.yml
+19  vi prometheus.yml
+20  ./prometheus --config.file=prometheus.yml
+21  cd /usr/local/src/
+22  ls
+23  wget https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
+24  free -m
+25  htop
+26  ls
+27  tar zxvpf node_exporter-0.17.0.linux-amd64.tar.gz
+28  cd node_exporter-0.17.0.linux-amd64/
+29  ls
+30  ./node_exporter
+31  ifconfig
+32  vi /etc/ssh/sshd_config
+33  systemctl restart ssh
+34  history

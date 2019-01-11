@@ -1,0 +1,210 @@
+1  cat /etc/passwd
+2  cat /etc/passwd | grep root
+3  cat /etc/ssh/sshd_config  | more
+4  passwd root
+5  vi /etc/ssh/sshd_config
+6  service sshd restart
+7  service sshd restart
+8  dir
+9  cls
+10  clear
+11  vi /etc/ssh/sshd_config
+12  /etc/init.d/ssh restart
+13  history
+14  history
+15  history
+16  ls
+17  consul --version
+18  uuidgen
+19  apt search uuidgen
+20  ifconfig
+21  consul agent -server -bootstrap -data-dir /tmp/consul -advertise 172.20.20.10
+22  consul --help
+23  ls /tmp/consul/
+24  cat >  /tmp/consul/consul.conf
+25  consul agent -server -bootstrap -data-dir /tmp/consul -advertise 172.20.20.10
+26  consul --help
+27  consul aget --help
+28  man consul
+29  ls
+30  consul
+31  consul --help agent
+32  consul agent -server -bootstrap -data-dir /tmp/consul -config-file /tmp/consul/consul.conf -advertise 172.20.20.10
+33  consul --help agent
+34  consul agent -server  -data-dir /tmp/consul -config-file /tmp/consul/consul.conf -advertise 172.20.20.10
+35  consul agent -server  -data-dir /tmp/consul -config-file /tmp/consul/consul.conf -advertise 172.20.20.10
+36  consul agent -server  -data-dir /tmp/consul -config-file /tmp/consul/consul.conf -advertise 172.20.20.10
+37  consul --help agent
+38  consul --help agent  | more
+39  consul agent -server  -data-dir=/tmp/consul -config-file=/tmp/consul/consul.conf -advertise 172.20.20.10
+40  vi /tmp/consul/consul.conf
+41  consul agent -server -config-file=/tmp/consul/consul.conf -advertise 172.20.20.10
+42  consul agent -server -data-dir=/tmp/consul -config-file=/tmp/consul/consul.conf -advertise 172.20.20.10
+43  vi /tmp/consul/consul.conf
+44  consul agent -server -data-dir=/tmp/consul -config-file=/tmp/consul/consul.conf -advertise 172.20.20.10
+45  vi /tmp/consul/consul.conf
+46  vi /tmp/consul/consul.conf
+47  consul agent -server -data-dir=/tmp/consul -config-file=/tmp/consul/consul.conf -advertise 172.20.20.10
+48  vi /tmp/consul/consul.conf
+49  consul agent -server -data-dir=/tmp/consul -config-file=/tmp/consul/consul.conf -advertise 172.20.20.10
+50  grep -HR n1 /tmp/consul/
+51  mkdir /opt/consul
+52  mv /tmp/consul/consul.conf /opt/consul/
+53  consul agent -server -data-dir=/opt/consul -config-file=/opt/consul/consul.conf -advertise 172.20.20.10
+54  cat /opt/consul/consul.conf
+55  vi /opt/consul/consul.conf
+56  consul agent -server -data-dir=/opt/consul -config-file=/opt/consul/consul.conf -advertise 172.20.20.10
+57  consul agent -server -bootstrap -data-dir=/opt/consul -config-file=/opt/consul/consul.conf -advertise 172.20.20.10
+58  vi /opt/consul/consul.conf
+59  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/consul.conf -advertise 172.20.20.10
+60  consul agent   -data-dir=/opt/consul
+61  mv /opt/consul/consul.conf /opt/consul/consul.json
+62  consul agent   -data-dir=/opt/consul
+63  vi /opt/consul/consul.conf
+64  mv /opt/consul/consul.json /opt/consul/config.json
+65  consul agent   -data-dir=/opt/consul
+66  vi /opt/consul/config.json
+67  consul agent   -data-dir=/opt/consul
+68  consul agent   -data-dir=/opt/consul -advertise 172.20.20.10
+69  consul agent -data-dir=/opt/consul -advertise 172.20.20.10
+70  consul agent -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+71  vi /opt/consul/config.json
+72  consul agent -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+73  consul agent -server -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+74  vi /opt/consul/config.json
+75  consul agent -server -bootstrap -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+76  vi /opt/consul/config.json
+77  consul agent -server -bootstrap -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+78  consul agent -server -bootstrap -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+79  vi /opt/consul/config.json
+80  consul agent -server -bootstrap -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+81  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+82  vi /opt/consul/config.json
+83  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+84  vi /opt/consul/config.json
+85  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+86  vi /opt/consul/config.json
+87  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+88  vi /opt/consul/config.json
+89  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+90  cat /opt/consul/config.json
+91  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+92  cat /opt/consul/config.json
+93  consul agent -server  -data-dir=/opt/consul -config-file=/opt/consul/config.json -advertise 172.20.20.10
+94  uuid
+95  apt search uuid
+96  apt install uuid
+97  uuid
+98  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+99  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+100  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+101  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+102  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+103  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+104  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+105  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+106  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+107  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+108  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+109  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+110  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+111  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+112  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+113  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+114  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+115  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+116  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+117  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+118  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+119  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+120  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+121  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+122  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+123  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+124  curl --request PUT http://127.0.0.1:8500/acl/bootstrap
+125  curl --request PUT http://127.0.0.1:8500/acl/bootstrap
+126  curl --request PUT http://127.0.0.1:8500/acl/bootstrapa
+127  curl --request PUT http://127.0.0.1:8500/acl/bootstrapasdfasdf
+128  curl --request PUT http://127.0.0.1:8500/acl/bootstrap
+129  curl --request PUT http://127.0.0.1:8500/acla/bootstrap
+130  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+131  curl --request PUT http://127.0.0.1:8500/v1/acl/bootstrap
+132  curl --request PUT --header "X-Consul-Token: b1gs33cr3t" --data '{http://127.0.0.1:8500/v1/acl/bootstrap
+133    "Name": "Agent Token",
+134    "Type": "client",
+135    "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+136  }'
+137  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+138    "Name": "Agent Token",
+139    "Type": "client",
+140    "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+141  }' http://127.0.0.1:8500/v1/acl/create
+142  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+143    "Name": "Agent Token",
+144    "Type": "client",
+145    "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+146  }' http://127.0.0.1:8500/v1/acl/create
+147  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+148    "Token": "6372714d-865c-cd91-cfcb-63b47daf5193"
+149  }' http://127.0.0.1:8500/v1/agent/token/acl_agent_token
+150  consul members
+151  consul members
+152  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-63b47daf5193 consult members
+153  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-63b47daf5193 consul members
+154  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-63b47daf5193 consul members
+155  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+156    "Token": "6372714d-865c-cd91-cfcb-63b47daf5193"
+157  }' http://127.0.0.1:8500/v1/agent/token/acl_agent_token
+158  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+159    "Name": "Agent Token",
+160    "Type": "client",
+161    "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+162  }' http://127.0.0.1:8500/v1/acl/create
+163  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+164    "Name": "Agent Token",
+165    "Type": "client",
+166    "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+167  }' http://127.0.0.1:8500/v1/acl/create
+168  curl     --request PUT     --header "X-Consul-Token: b1gs33cr3t"     --data '{
+169    "Name": "Agent Token",
+170    "Type": "client",
+171    "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+172  }' http://127.0.0.1:8500/v1/acl/create
+173  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-63b47daf5193 consul members
+174  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-a3b47daf5193 consul members
+175  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-63b47daf5193 consul members
+176  CONSUL_HTTP_TOKEN=6372714d-865c-cd91-cfcb-63b47daf5193 consul members
+177  history
+178  history | grep curl
+179  history
+180  ip addr show
+181  history
+
+
+
+
+1  consult --version
+2  consul version
+3  consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=agent-one -bind=172.20.20.10 -enable-script-checks=true -config-dir=/etc/consult.d
+4  ls /etc/consul.d/
+5  consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=agent-one -bind=172.20.20.10 -enable-script-checks=true -config-dir=/etc/consult.d
+6  consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=agent-one -bind=172.20.20.10 -enable-script-checks=true -config-dir=/etc/consul.d
+7  consul members
+8  consul join 172.20.20.11
+9  consul members
+10  echo '{"check": {"name": "ping",
+11    "script": "ping -c1 google.com >/dev/null", "interval": "30s"}}'   >/etc/consul.d/ping.json
+12  cat /etc/consul.d/ping.json
+13  rm /etc/consul.d/ping.json
+14  consul join 172.20.20.11
+15  curl http://localhost:8500/v1/health/state/critical
+16  consul join 172.20.20.11
+17  consul get -recurse
+18  consul kv get -recurse
+19  consul join 172.20.20.11
+20  ifconfig
+21  ip addr show
+22  su
+23  sudo su
+24  su
+25  history

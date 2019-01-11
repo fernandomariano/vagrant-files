@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: <<-SHELL
+    yum update -y
+    wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+    rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    yum -y install epel-release
+    yum -y install java-1.8.0-openjdk
+    yum -y install jenkins
+    systemctl enable jenkins
+    systemctl start jenkins
+    echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/jenkins
+  SHELL
+
+  config.vm.define "centos" do |centos|
+    centos.vm.box = "bento/centos-7"
+    centos.vm.hostname = "jenkins"
+    centos.vm.network "private_network", ip: "192.168.24.10"
+    config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
+    config.vm.provider "virtualbox" do |vb|
+      vb.name = "jenkins"
+      vb.memory = "2048"
+    end
+  end
+end

@@ -1,0 +1,24 @@
+1  netstat -atnp
+ 2  ifconfig
+ 3  shutdown -h now
+ 4  cat /var/lib/jenkins/secrets/initialAdminPassword
+ 5  free -m
+ 6  getenforcing
+ 7  getenforce
+ 8  cat /etc/sudoers
+ 9  echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/jenkins
+10  su -i jenkins
+11  sudo -i jenkins
+12  su jenkins
+13  shutdown -h now
+14  usermod -s /bin/bash jenkins
+15  ls -ld /home/builder/
+16  sudo su builder
+17  cat /etc/passwd
+18  free -m
+19  shutdown -h now
+20  history
+21  ifconfig
+22  ls /vagrant/
+23  shutdown -h now
+24  history

@@ -1,0 +1,152 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "dockerswarm-master1" do |dockerswarm|
+    dockerswarm.vm.box = "dockerswarm-master1"
+    dockerswarm.vm.hostname = "dockerswarm-master1"
+    dockerswarm.vm.box = "bento/centos-7"
+    dockerswarm.vm.network "private_network", ip: "192.168.77.10"
+    # config.vm.provider "virtualbox" do |vb|
+    #   vb.memory = "1024"
+    # end
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    dockerswarm.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+  config.vm.define "dockerswarm-master2" do |dockerswarm|
+    dockerswarm.vm.box = "dockerswarm-master2"
+    dockerswarm.vm.hostname = "dockerswarm-master2"
+    dockerswarm.vm.box = "bento/centos-7"
+    dockerswarm.vm.network "private_network", ip: "192.168.77.11"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    dockerswarm.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+  config.vm.define "dockerswarm-master3" do |dockerswarm|
+    dockerswarm.vm.box = "dockerswarm-master3"
+    dockerswarm.vm.hostname = "dockerswarm-master3"
+    dockerswarm.vm.box = "bento/centos-7"
+    dockerswarm.vm.network "private_network", ip: "192.168.77.12"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    dockerswarm.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+  config.vm.define "dockerswarm-node1" do |dockerswarm|
+    dockerswarm.vm.box = "dockerswarm-node1"
+    dockerswarm.vm.hostname = "dockerswarm-node1"
+    dockerswarm.vm.box = "bento/centos-7"
+    dockerswarm.vm.network "private_network", ip: "192.168.77.20"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    dockerswarm.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+
+  end
+  config.vm.define "dockerswarm-node2" do |dockerswarm|
+    dockerswarm.vm.box = "dockerswarm-node2"
+    dockerswarm.vm.hostname = "dockerswarm-node2"
+    dockerswarm.vm.box = "bento/centos-7"
+    dockerswarm.vm.network "private_network", ip: "192.168.77.21"
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+    dockerswarm.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+
+  end
+
+end

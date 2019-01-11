@@ -1,0 +1,76 @@
+# -*- mode: ruby
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  centos = "bento/centos-7.5"
+  ubuntu = "bento/ubuntu-16.04"
+  net_ip = "192.168.215"
+
+  # single-master node
+  # config.vm.define :saltmaster1, primary: true do |master_config|
+
+  # multi-master nodes
+  [
+    ["saltmaster-ce1", "#{net_ip}.4", "512", centos],
+    ["saltmaster-ce2", "#{net_ip}.2", "512", centos],
+  ].each do |vmname,ip,mem,os|
+    config.vm.define "#{vmname}" do |master_config|
+      master_config.vm.provider "virtualbox" do |vb|
+        vb.memory = "#{mem}"
+        vb.cpus = 2
+        vb.name = "#{vmname}"
+      end
+      master_config.vbguest.auto_update = true
+      master_config.vm.box = "#{os}"
+      master_config.vm.boot_timeout = 600
+      master_config.vm.host_name = "#{vmname}"
+      master_config.vm.network "private_network", ip: "#{ip}"
+      master_config.vm.synced_folder "saltstack/salt/", "/srv/salt"
+      master_config.vm.synced_folder "saltstack/pillar/", "/srv/pillar"
+      master_config.vm.synced_folder "saltstack/reactor/", "/srv/reactor"
+      master_config.vm.synced_folder "saltstack/master.d/", "/etc/salt/master.d/"
+
+      master_config.vm.provision "shell" do |s|
+        ssh_pub_key = File.readlines("saltstack/keys/id_rsa.pub").first.strip
+        s.inline = <<-SHELL
+          # yum upgrade kernel -y
+          echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+          mkdir /root/.ssh
+          echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+        SHELL
+      end
+    end
+  end
+
+  # multi-slave nodes
+  [
+    ["minion-ce1", "#{net_ip}.11", "512", centos],
+    ["minion-ce2", "#{net_ip}.12", "512", centos],
+    ["minion-ce3", "#{net_ip}.13", "512", ubuntu],
+    ["minion-ce4", "#{net_ip}.14", "512", ubuntu],
+  ].each do |vmname,ip,mem,os|
+    config.vm.define "#{vmname}" do |minion_config|
+      minion_config.vm.provider "virtualbox" do |vb|
+        vb.memory = "#{mem}"
+        vb.cpus = 2
+        vb.name = "#{vmname}"
+      end
+      minion_config.vbguest.auto_update = false
+      minion_config.vm.box = "#{os}"
+      minion_config.vm.hostname = "#{vmname}"
+      minion_config.vm.boot_timeout = 600
+      minion_config.vm.network "private_network", ip: "#{ip}"
+      minion_config.vm.provision "shell" do |s|
+        ssh_pub_key = File.readlines("saltstack/keys/id_rsa.pub").first.strip
+        s.inline = <<-SHELL
+          # yum upgrade kernel -y
+          echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+          mkdir /root/.ssh
+          echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+        SHELL
+      end
+    end
+  end
+end

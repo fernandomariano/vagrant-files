@@ -1,0 +1,560 @@
+1  ls /etc/salt/pki/
+2  ls /etc/salt/pki/master/
+3  ls /etc/salt/pki/minion/
+4  ls /etc/salt/pki/master/
+5  ls /etc/salt/pki/master/minions
+6  cat /etc/salt/pki/master/minions/minion-ce1
+7  curl -L https://bootstrap.saltstack.com -o install_salt.sh
+8  sh install_salt.sh --help
+9  sh install_salt.sh -P -M -N
+10  systemctl stop salt-master
+11  ls /root/
+12  ifconfig
+13  curl -L https://bootstrap.saltstack.com -o install_salt.sh
+14  sh install_salt.sh --help
+15  sh install_salt.sh -P -M -A saltmaster-ce1
+16  history
+17  salt-key -L
+18  salt-key -A
+19  salt '*' test.ping
+20  salt-key -L
+21  salt-key --help
+22  salt-key -F
+23  salt-key -f master
+24  salt-key -F master
+25  salt '*' test.ping
+26  salt-key -F
+27  vi /etc/salt/minion
+28  systemctl restart salt-miinon
+29  systemctl restart salt-minion
+30  salt '*' test.ping
+31  vi /etc/salt/minion
+32  systemctl restart salt-minion
+33  salt '*' test.ping
+34  salt '*' test.ping -l debug
+35  vi /etc/salt/minion
+36  systemctl restart salt-minion
+37  salt '*' test.ping -l debug
+38  salt-key  -F
+39  salt -F
+40  salt-key -F
+41  salt-key -A
+42  salt '*' test.ping
+43  ls /srv/
+44  ls /srv/salt/
+45  ls -lh /srv/
+46  vi /etc/salt/master
+47  vi /etc/salt/minion
+48  vi /etc/salt/minion.d/grains.conf
+49  systemctl restart salt-minion
+50  salt '*' service.restart salt-minion
+51  salt '*' grains.ls
+52  salt '*' grains.get roles
+53  salt '*' mine.get '*' network.ip_addrs
+54  vi /etc/salt/minion.d/mine.conf
+55  salt '*' service.restart salt-minion
+56  salt '*' mine.get '*' networki.ip_addrs
+57  salt '*' mine.get '*' network.ip_addrs
+58  salt '*' mine.get '*' network
+59  cat /etc/salt/minion.d/mine.conf
+60  salt '*' mine.get '*' network.ip_addrs
+61  salt '*' mine.update
+62  salt '*' mine.get '*' network.ip_addrs
+63  salt '*' mine.get '*' network
+64  salt '*' mine.get '*' network.ipaddrs
+65  salt '*' mine.get '*' network.ip_addrs
+66  salt '*' mine.update
+67  salt '*' mine.get '*' network.ip_addrs
+68  salt '*' mine.update
+69  salt '*' mine.get '*' network.ip_addrs
+70  salt '*' test.ping
+71  salt '*' cmd.run 'ls /home'
+72  cd /etc/salt/pki/master/
+73  ls
+74  scp master.p* root@192.168.215.2
+75  scp master.p* root@192.168.215.2:/root
+76  ifconfig
+77  salt '*' cmd.run 'ls /home'
+78  systemctl restart salt-master
+79  salt '*' test.ping
+80  salt-key -L
+81  salt '*' test.ping
+82  systemctl stop salt-master
+83  salt '*' test.ping
+84  vi /etc/salt/minion.d/99-master-address.conf
+85  salt '*' service.restart salt-minion
+86  systemctl restart salt-minion
+87  vi /etc/hosts
+88  systemctl restart salt-minion
+89  salt-key --local key.finger
+90  salt-call --local key.finger
+91  systemctl status salt-master
+92  ls /srv/salt/
+93  salt '*' pkg.install htop
+94  systemctl restart salt-minion
+95  systemctl restart salt-master
+96  salt '*' test.ping
+97  salt '*' pkg.install htop
+98  htop
+99  salt 'minion*' test.ping
+100  salt 'minion?' test.ping
+101  salt 'minion-ce?' test.ping
+102  salt -L 'minion-ce?' test.ping
+103  salt -L 'minion-ce1, minion' test.ping
+104  salt -L 'minion-ce1, minion-ce2' test.ping
+105  salt -G 'os:CentOS' test.ping
+106  salt -G 'os:Ubuntu' test.ping
+107  salt -G 'roles:prod' test.ping
+108  salt -G 'roles:dev' test.ping
+109  vi /etc/salt/master.d/nodegroups.conf
+110  salt -N centos-dev test.ping
+111  salt -S '192.168.215.0/24' test.ping
+112  salt -S '192.168.215.11' test.ping
+113  salt '*' test.ping
+114  salt '*' test.ping -b 2
+115  salt '*' test.ping -b 1
+116  salt '*' test.ping -b 1 --failhard
+117  man salt
+118  salt '*' show_sls fake
+119  salt '*' state.show_sls fake
+120  salt '*' state.show_sls fake --failhard
+121  salt '*' state.show_sls fake --failhard -b 1
+122  systemctl stop salt-master
+123  salt 'saltmaster-ce1' sys.list_functions supervisord
+124  salt 'saltmaster-ce1' sys.list_functions uptime
+125  salt 'saltmaster-ce1' sys.list_functions vbox_guest
+126  salt 'saltmaster-ce1' vbox_guest.list_shared_folders_users
+127  salt '*' vbox_guest.list_shared_folders_users
+128  salt 'saltmaster-ce1' sys.list_functions status
+129  salt 'saltmaster-ce1' status.master
+130  salt '*' status.meminfo
+131  salt 'saltmaster-ce1' status.master
+132  salt 'saltmaster-ce1' sys.list_functions status
+133  salt 'saltmaster-ce1' status.version
+134  salt 'saltmaster-ce1' status.cpuinfo
+135  salt 'saltmaster-ce1' sys.list_fucntions pkg
+136  salt 'saltmaster-ce1' sys.list_functions pkg
+137  salt 'saltmaster-ce1' sys.list_functions sys
+138  salt 'saltmaster-ce1' sys.list_modules
+139  salt 'saltmaster-ce1' sys.list_functions django
+140  salt 'saltmaster-ce1' sys.list_functions selinux
+141  salt 'saltmaster-ce1' sys.list_functions test
+142  salt 'saltmaster-ce1' sys.list_modules
+143  salt 'saltmaster-ce1' sys.list_renderers
+144  salt 'saltmaster-ce1' sys.list_returners
+145  salt 'saltmaster-ce1' sys.list_runners
+146  salt 'saltmaster-ce1' sys.list_runner_functions jobs
+147  salt 'saltmaster-ce1' sys.list_runner_functions http
+148  salt 'saltmaster-ce1' sys.list_runner_functions mine
+149  salt 'saltmaster-ce1' sys.list_runner_functions pagerduty
+150  salt 'saltmaster-ce1' sys.list_runner_functions salt
+151  salt 'saltmaster-ce1' sys.list_runner_functions saltutil
+152  salt 'saltmaster-ce1' sys.list_state_modules
+153  salt 'saltmaster-ce1' sys.list_state_functions pkgbuild
+154  salt 'saltmaster-ce1' sys.list_state_doc pkgbuild
+155  salt 'saltmaster-ce1' sys.list_state_doc pkgbuild.built
+156  salt 'saltmaster-ce1' sys.state_doc pkgbuild.built
+157  salt 'saltmaster-ce1' sys.state_argspec pkgbuild.built
+158  salt 'saltmaster-ce1' sys.list_runners
+159  salt 'saltmaster-ce1' sys.runner_argspec saltutil
+160  salt 'saltmaster-ce1' sys.runner_argspec saltutil.refresh_pillar
+161  salt 'saltmaster-ce1' sys.list_functions sys
+162  salt 'saltmaster-ce1' sys.doc sys
+163  salt 'saltmaster-ce1' sys.doc sys.reload_modules
+164  salt 'saltmaster-ce1' sys.argspec pkg.installed
+165  salt 'saltmaster-ce1' sys.state_argspec pkg.installed
+166  salt 'saltmaster-ce1' test.stack
+167  salt 'saltmaster-ce1' sys.doc test.stack
+168  salt 'saltmaster-ce1' test.stack
+169  salt '*' test.stack
+170  salt 'saltmaster-ce1' sys.argspec pkg
+171  salt 'saltmaster-ce1' sys.argspec pkg.*
+172  salt 'saltmaster-ce' sys.doc sys.doc
+173  salt 'saltmaster-ce1' sys.doc sys.doc
+174  salt 'saltmaster-ce1' sys.list_functions
+175  salt 'saltmaster-ce1' sys.list_functions network
+176  salt 'saltmaster-ce1' sys.doc network.traceroute
+177  salt 'saltmaster-ce1' network.traceroute google.ca
+178  salt 'saltmaster-ce1' network.traceroute archlinux.org
+179  salt 'saltmaster-ce1' sys.list_functions
+180  salt 'saltmaster-ce1' sys.list_modules
+181  salt 'saltmaster-ce1' sys.list_functions
+182  salt 'saltmaster-ce1' test.stack
+183  salt 'saltmaster-ce1' test.outputter
+184  salt 'saltmaster-ce1' test.outputter foobar
+185  salt 'saltmaster-ce1' group.add salt
+186  salt 'saltmaster-ce1' group.adduser salt vagrant
+187  salt 'saltmaster-ce1' sys.argspec user.add
+188  salt 'saltmaster-ce1' user.add fmariano groups=salt,sudo home=/bin/bash fullname="Fernando Mariano"
+189  salt 'saltmaster-ce1' shadown.gen_password 'password'
+190  salt 'saltmaster-ce1' shadow.gen_password 'password'
+191  salt 'saltmaster-ce1' shadow.set_password fmariano '$6$kLyIpw2T$F4ATEfV.nH0H8i6Vy3rpgMn4ccevA8eVy9C5/.sID/KlQZ6AjqOEes8Bk9E1Upz8cEsZ4woPSPcWuciPMbnPg.'
+192  salt 'saltmaster-ce1' grains.ls
+193  pip search salt
+194  salt 'saltmaster-ce1' grains.fetch ipv4_interfaces
+195  salt 'saltmaster-ce1' grains.ls
+196  salt 'saltmaster-ce1' grains.path
+197  salt 'saltmaster-ce1' grains.fetch path
+198  salt 'saltmaster-ce1' grains.ls
+199  salt 'saltmaster-ce1' grains.fetch selinux
+200  salt 'saltmaster-ce1' grains.get selinux
+201  salt 'saltmaster-ce1' grains.item selinux
+202  salt 'saltmaster-ce1' grains.items
+203  salt 'saltmaster-ce1' grains.set mygrain myvalue
+204  salt 'saltmaster-ce1' grains.get mygrain
+205  salt 'saltmaster-ce1' grains.append mygrain myvalue2
+206  salt 'saltmaster-ce1' grains.append mygrain myvalue2 convert=True
+207  salt 'saltmaster-ce1' grains.remove mygrain myvalue2
+208  salt 'saltmaster-ce1' grains.get mygrain
+209  salt 'saltmaster-ce1' grains.delkey sites
+210  salt 'saltmaster-ce1' grains.delkey mygrain
+211  salt 'saltmaster-ce1' grains.get mygrain
+212  salt 'saltmaster-ce1' cmd.which echo
+213  salt 'saltmaster-ce1' cmd.which ls
+214  salt 'saltmaster-ce1' sys.state_list_functions pkg.installed
+215  salt 'saltmaster-ce1' sys.state_list_function pkg.installed
+216  salt 'saltmaster-ce1' sys.list_functions sys
+217  salt 'saltmaster-ce1' sys.list_state_functions pkg.installed
+218  salt 'saltmaster-ce1' sys.state_argspec pkg.installed
+219  ls /srv/salt/mysql/server.sls
+220  cat /srv/salt/mysql/server.sls
+221  salt 'minion-ce1' state.sls mysql.server test=true
+222  salt 'minion-ce2' state.sls mysql.server test=true
+223  cd /srv/salt/mysql/files/
+224  curl -O https://raw.githubusercontent.com/linuxacademy/content-ssce-files/master/server.cnf
+225  cat > server.cnf
+226  vi server.cnf
+227  salt 'minion-ce2' state.sls mysql.config test=true
+228  salt 'minion-ce2' state.sls mysql.server,mysql.config,mysql.restart test=true
+229  salt 'minion-ce2' state.sls mysql.server,mysql.config,mysql.restart
+230  grep -v \# /etc/salt/master
+231  grep -v \# /etc/salt/master| uniq
+232  vi /etc/salt/master
+233  salt 'minion-ce2' state.sls mysql.server,mysql.config,mysql.restart
+234  vi /etc/salt/master
+235  ls
+236  salt 'minion-ce2' state.sls mysql.server,mysql.config,mysql.restart
+237  systemctl restart salt-master
+238  salt 'minion-ce2' state.sls mysql.server,mysql.config,mysql.restart
+239  grep -v \# /etc/salt/master| uniq
+240  cat /etc/salt/master.d/nodegroups.conf
+241  ls /etc/salt/master.d/
+242  vi /etc/salt/master
+243  salt 'minion-ce2' state.sls mysql.server,mysql.config,mysql.restart
+244  salt 'minion-ce2' state.sls mysql test=true
+245  salt 'minion-ce2' state.sls mysql
+246  salt '*' state.highstate test=true
+247  salt '*' state.highstate
+248  yum search mariadb-client
+249  yum search mariadb
+250  salt '*' state.highstate --failhard
+251  salt 'saltmaster-ce1' state.apply mysql queue=true test=true
+252  salt 'saltmaster-ce2' state.apply mysql queue=true test=true
+253  salt '*' test.ping
+254  salt 'minion-ce2' state.apply mysql queue=true test=true
+255  salt 'minion-ce2' pkg.remove mariadb-server
+256  salt 'minion-ce2' state.apply mysql queue=true test=true
+257  salt 'minion-ce2' state.apply mysql queue=true
+258  salt 'minion-ce2' pkg.remove mariadb-server
+259  salt 'minion-ce2' state.apply mysql queue=true test=true
+260  salt 'minion-ce2' state.apply mysql queue=true
+261  history
+262  salt 'minion-ce3' state.apply mysql queue=true test=true
+263  salt-key -L
+264  history
+265  salt-key -L
+266  salt-key -a minion-ce3
+267  salt '*' test.ping
+268  salt 'minion-ce3' state.apply mysql queue=true test=true
+269  salt 'minion-ce3' state.apply mysql queue=true
+270  salt 'minion-ce2' state.apply mysql queue=true
+271  salt 'minion-ce2' state.apply mysql queue=true test=true
+272  salt 'minion-ce2' state.apply mysql queue=true
+273  salt 'minion-ce3' state.apply mysql queue=true
+274  salt '*' saltutil.refresh_pillar
+275  salt '*' pillar.get mysql
+276  salt '*' saltutil.refresh_pillar
+277  salt '*' pillar.get mysql
+278  salt '*' pillar.items
+279  salt 'minion-ce3' state.apply mysql queue=true test=true
+280  salt 'minion-ce3' state.apply mysql queue=true
+281  cd /etc/salt/
+282  mkdir gpgkeys
+283  chmod 0700 gpgkeys/
+284  yum search rng-tools
+285  yum makecache fast
+286  yum install rng-tools
+287  rngd -r /dev/urandom
+288  man rngd
+289  gpg --gen-key --homedir /etc/salt/gpgkeys
+290  gpg-agent
+291  pkill gpg-agent
+292  pkill gpg-agent -9
+293  pkill gpg-agent
+294  ps aux | grep gpg
+295  source gpg-agent --daemon
+296  gpg-agent --daemon
+297  gpg --gen-key --homedir /etc/salt/gpgkeys
+298  getenforce
+299  kill -9 gpg-agent
+300  pkill -9 gpg-agent
+301  source &lt;(gpg-agent --daemon)
+302  pkill -9 gpg-agent
+303  source (gpg-agent --daemon)
+304  source gpg-agent --daemon
+305  gpg-agent --daemon
+306  gpg --gen-key --homedir /etc/salt/gpgkeys
+307  ps aux | grep gpg
+308  su -i vagrant
+309  su vagrant
+310  yum upgrade
+311  gpg --gen-key --homedir /etc/salt/gpgkeys
+312  kill -9 gpg-agent
+313  pkill -9 gpg-agent
+314  source <(gpg-agent --daemon)
+315  gpg --gen-key --homedir /etc/salt/gpgkeys
+316  ls /etc/salt/gpgkeys/
+317  echo -n "temppass" | gpg --armor --trust-model always --encrypt -r saltstack
+318  gpg --homedir /etc/salt/gpgkeys/ --armor --export saltstack > exported_pubkey.gpg
+319  cat exported_pubkey.gpg
+320  gpg --import exported_pubkey.gpg
+321  echo -n "temppass" | gpg --armor --trust-model always --encrypt -r saltstack
+322  salt '*' saltutil.refresh_pillar
+323  sudo salt 'minion*' state.sls mysql
+324  salt 'minion*' test.ping
+325  salt 'minion-ce3' state.apply mysql queue=true
+326  salt '*' saltutil.refresh_pillar
+327  salt '*' pillar.get mysql
+328  salt '*' saltutil.refresh_pillar
+329  salt '*' pillar.get mysql
+330  systemctl restart salt-master
+331  salt '*' pillar.get mysql
+332  salt '*' saltutil.refresh_pillar
+333  salt '*' pillar.get mysql
+334  salt '*' saltutil.refresh_pillar
+335  salt '*' pillar.get mysql
+336  ls /srv/pillar/
+337  cat /srv/pillar/
+338  shutdown -h now
+339  ls /srv/pillar/
+340  shutdown -h now
+341  salt 'minion-ce3' test.ping
+342  salt 'minion-ce3' state.sls mysql.conf
+343  salt 'minion-ce3' state.sls mysql.config
+344  salt-run pillar.show_pillar minion-ce3
+345  salt 'minion-ce3' pkg.install python-pyinotify
+346  salt 'minion-ce3' pkg.install python-inotify
+347  salt 'minion-ce2' pkg.install python-inotify
+348  salt 'minion-ce1' pkg.install python-inotify
+349  salt '*' saltutil.refresh_pillar
+350  salt '*' pillar.get beacons
+351  cat /srv/pillar/beacons.sls
+352  salt '*' saltutil.refresh_pillar
+353  cat /srv/pillar/beacons.sls
+354  salt '*' pillar.get beacons
+355  salt '*' saltutil.refresh_pillar
+356  salt '*' pillar.get mysql
+357  salt '*' saltutil.refresh_pillar
+358  salt '*' pillar.get mysql
+359  salt 'minion-ce3' test.ping
+360  salt 'minion-ce3' state.show_sls mysql
+361  salt '*' saltutil.refresh_pillar
+362  salt '*' pillar.get mysql
+363  salt 'minion-ce3' state.apply mysql queue=true
+364  gpg --list-keys
+365  gpg --list-keys --homedir /etc/salt/gpgkeys/
+366  gpg --homedir /etc/salt/gpgkeys --export-secret-keys --armor > exported_private.key
+367  cat exported_private.key
+368  cat exported_pubkey.gpg
+369  echo -n "temppass" | gpg --armor --trust-model always --encrypt -r saltstack > test.crypt
+370  cat test.crypt
+371  gpg --homedir gpgkeys -d test.crypt 2>/dev/null
+372  gpg --homedir gpgkeys -d test.crypt
+373  gpg --homedir /etc/salt/gpgkeys -d test.crypt
+374  gpg --homedir /etc/salt/gpgkeys -d test.crypt 2>/dev/null
+375  salt 'minion-ce3' state.apply mysql queue=true
+376  salt 'minion-ce3' state.apply mysql queue=true test=true
+377  salt 'minion-ce3' state.apply mysql queue=true
+378  salt-run state.event pretty=True
+379  ls /srv/pillar/
+380  shutdown -h now
+381  cat /etc/salt/master
+382  cat /etc/salt/master| grep -v \^#
+383  cat /etc/salt/master| grep -v \^# | uniq
+384  shutdown -h now
+385  ls /srv/reactor/
+386  ls /srv/reactor/mysql/
+387  ls /srv/reactor/mysql/deb_config.sls
+388  cat /srv/reactor/mysql/deb_config.sls
+389  salt-run jobs.list_jobs
+390  salt-run jobs.active
+391  salt 'minion-ce3' schedule.add highstate=1 function='state.highstate' seconds=60
+392  salt 'minion-ce3' schedule.add highstate-1 function='state.highstate' seconds=60
+393  salt 'minion-ce3' schedule.delete highstate-1
+394  ls /etc/salt/master.d/
+395  cat /etc/salt/master.d/reactor.conf
+396  salt-run state.event pretty=True
+397  systemctl restart salt-master
+398  salt-run state.event pretty=True
+399  salt-run -d state.event
+400  salt-run -d state
+401  salt-run --help
+402  salt-run reactor.list
+403  salt-run manage.present
+404  salt-run manage.present salt-run mine.get 'minion*' network.ip_addrs
+405  salt-run pillar.show_top
+406  salt 'minion-ce2' pkg.remove mariadb-server
+407  salt 'minion-ce2' state.apply mysql queue=true test=true
+408  salt-run state.orch orch.setup
+409  ls /etc/salt/master.d/fmariano-sandbox.pem
+410  yum install salt-ssh
+411  vi /etc/salt/roster
+412  salt-ssh '*' test.ping
+413  ssh-copy-id /etc/salt/pki/master/ssh/salt-ssh.rsa.pub vagrant@192.168.215.14
+414  ssh-copy-id -i /etc/salt/pki/master/ssh/salt-ssh.rsa.pub vagrant@192.168.215.14
+415  ssh vagrant@192.168.215.14
+416  ssh vagrant@192.168.215.14 -i /etc/salt/pki/master/ssh/salt-ssh.rsa.pub
+417  ssh vagrant@192.168.215.14 -i /etc/salt/pki/master/ssh/salt-ssh.rsa
+418  salt-ssh '*' test.ping
+419  salt-ssh '*' state.apply mysql queue=true test=true
+420  salt-ssh '*' state.apply mysql.client queue=true
+421  salt 'minion-ce2' state.apply mysql queue=true test=true
+422  salt-ssh --help
+423  salt-ssh --help | grep -i gpg
+424  vi /etc/salt/master.d/mymaster.conf
+425  systemctl restart salt-master
+426  salt-ssh '*' state.apply mysql.client queue=true test=true
+427  salt-ssh '*' state.apply mysql queue=true test=true
+428  vi /etc/salt/master
+429  salt-ssh '*' state.apply mysql queue=true
+430  salt-ssh 'minion-ce4' network.mod_hostname minion-ce4-ssh
+431  salt-ssh minion-ce4 state.sls mysql
+432  yum install salt-cloud -y
+433  ls /etc/salt/master.d/
+434  cd /etc/salt/master.d/
+435  chmod 400 fmariano-sandbox.pem
+436  cd /etc/salt/cloud.providers.d/
+437  ls
+438  vi ec2.conf
+439  cd ..
+440  cd cloud.profiles.d/
+441  ls
+442  vi ec2.conf
+443  salt-cloud -p tiny-server web-test
+444  ls
+445  cat ec2.conf
+446  cd ..
+447  salt-cloud -p tiny-server web-test
+448  salt-cloud -p tiny-server web-test -l debug
+449  vi /etc/salt/cloud.providers.d/ec2.conf
+450  salt-cloud -p tiny-server web-test -l debug
+451  chmod 0400 /etc/salt/master.d/fmariano-sandbox.pem
+452  chmod 0400 /etc/salt/master.d/fmariano-sandbox.pem
+453  salt-cloud -p tiny-server web-test -l debug
+454  ls -lh /etc/salt/master.d/fmariano-sandbox.pem
+455  cd /etc/salt/master.d/
+456  ls
+457  cp -a fmariano-sandbox.pem /etc/salt/pki/master/
+458  cat fmariano-sandbox.pem
+459  ls -lh
+460  chmod 777 fmariano-sandbox.pem
+461  cat fmariano-sandbox.pem
+462  ls
+463  rm fmariano-sandbox.pem
+464  ls
+465  ls -lh fmariano-sandbox.pem
+466  cat fmariano-sandbox.pem
+467  cat mymaster.conf y
+468  ls
+469  ls -lh
+470  rm fmariano-sandbox.pem
+471  ls
+472  cat > fmariano-sandbox.pem
+473  salt-cloud -p tiny-server web-test -l debug
+474  ls -lh fmariano-sandbox.pem
+475  cd ..
+476  ls
+477  cd pki/
+478  ls
+479  cd master/
+480  ls
+481  cat > fmariano-sandbox.pem
+482  ls
+483  vi /etc/salt/cloud.profiles.d/ec2.conf
+484  vi /etc/salt/cloud.providers.d/ec2.conf
+485  cat /etc/salt/cloud.providers.d/ec2.conf
+486  ls /etc/salt/pki/master/fmariano-sandbox.pem
+487  salt-cloud -p tiny-server web-test -l debug
+488  chmod 0400 /etc/salt/pki/master/fmariano-sandbox.pem
+489  salt-cloud -p tiny-server web-test -l debug
+490  cd /etc/salt/
+491  ls
+492  cat cloud.providers.d/
+493  cat cloud.providers.d/ec2.conf
+494  vi cloud.providers.d/ec2.conf
+495  salt-cloud -p tiny-server web-test -l debug
+496  cat cloud.providers.d/ec2.conf
+497  salt-cloud --list- ec2-web
+498  cat cloud.providers.d/ec2.conf
+499  vi cloud.providers.d/ec2.conf
+500  salt-cloud -p tiny-server web-test -l debug
+501  vi cloud.providers.d/ec2.conf
+502  salt-cloud -p tiny-server web-test -l debug
+503  vi cloud.providers.d/ec2.conf
+504  salt-cloud -p tiny-server web-test -l debug
+505  vi cloud.providers.d/ec2.conf
+506  vi cloud.profiles.d/ec2.conf
+507  salt-cloud -p tiny-server web-test -l debug
+508  vi cloud.profiles.d/ec2.conf
+509  salt-cloud -p tiny-server web-test -l debug
+510  salt-cloud --list-images ec2-web
+511  vi cloud.profiles.d/ec2.conf
+512  salt-cloud -p tiny-server web-test -l debug
+513  vi cloud.profiles.d/ec2.conf
+514  vi cloud.providers.d/ec2.conf
+515  salt-cloud -p tiny-server web-test -l debug
+516  salt-cloud  --version
+517  vi cloud.providers.d/ec2.conf
+518  vi cloud.profiles.d/
+519  vi cloud.profiles.d/ec2.conf
+520  salt-cloud -p tiny-server web-test -l debug
+521  vi cloud.profiles.d/ec2.conf
+522  salt-cloud -p tiny-server web-test -l debug
+523  vi cloud.profiles.d/ec2.conf
+524  vi cloud.providers.d/ec2.conf
+525  salt-cloud -p tiny-server web-test -l debug
+526  vi cloud.profiles.d/ec2.conf
+527  salt-cloud -p tiny-server web-test -l debug
+528  vi cloud.providers.d/ec2.conf
+529  salt-cloud -p tiny-server web-test -l debug
+530  vi cloud.providers.d/ec2.conf
+531  salt-cloud -p tiny-server web-test -l debug
+532  vi cloud.providers.d/ec2.conf
+533  salt-cloud -p tiny-server web-test -l debug
+534  salt-cloud -f show_keypair ec2 keyname=test
+535  salt-cloud -f show_keypair ec2-web keyname=test
+536  vi cloud.providers.d/ec2.conf
+537  salt-cloud -f show_keypair ec2-web keyname=test
+538  vi cloud.providers.d/ec2.conf
+539  salt-cloud -p tiny-server web-test -l debug
+540  vi cloud.profiles.d/ec2.conf
+541  salt-cloud -p tiny-server web-test -l debug
+542  vi cloud.profiles.d/ec2.conf
+543  salt-cloud -p tiny-server web-test -l debug
+544  vi /etc/salt/master
+545  salt-key --help
+546  q!
+547  vi /etc/salt/master
+548  history | grep group
+549  history | grep password
+550  history | grep stack
+551  history | grep sys | grep functions
+552  salt 'saltmaster-ce1' sys.list_functions cmd
+553  history | grep user.add
+554  history | grep salt-run
+555  history | grep mine.get
+556  salt-run mine.get 'minion*' network.ip_addrs
+557  salt 'saltmaster-ce1' sys.list_functions cp
+558  salt 'saltmaster-ce1' sys.doc sys
+559  salt 'saltmaster-ce1' sys.argspec cp.get_file
+560  history

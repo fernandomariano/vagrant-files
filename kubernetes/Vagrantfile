@@ -1,0 +1,127 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.define "kubemaster" do |kubemaster|
+    kubemaster.vm.hostname = "kubemaster"
+    kubemaster.vm.box = "bento/centos-7"
+    kubemaster.vm.network "private_network", ip: "192.168.77.10"
+
+    # config.vm.box_check_update = false
+    # config.vm.network "forwarded_port", guest: 80, host: 8080
+    # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    # config.vm.network "public_network"
+    # config.vm.synced_folder "../data", "/vagrant_data"
+
+    kubemaster.vm.provider "virtualbox" do |vb|
+        vb.name = "kubemaster"
+        vb.memory = "2048"
+        vb.cpus = 2
+    end
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    kubemaster.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+  config.vm.define "kubenode1" do |kubenode1|
+    kubenode1.vm.hostname = "kubenode1"
+    kubenode1.vm.box = "bento/centos-7"
+    kubenode1.vm.network "private_network", ip: "192.168.77.11"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    kubenode1.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+
+  end
+  config.vm.define "kubenode2" do |kubenode2|
+    kubenode2.vm.hostname = "kubenode2"
+    kubenode2.vm.box = "bento/centos-7"
+    kubenode2.vm.network "private_network", ip: "192.168.77.12"
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+      kubenode2.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+  config.vm.define "minikube" do |minikube|
+    minikube.vm.hostname = "minikube"
+    minikube.vm.box = "bento/centos-7"
+    minikube.vm.network "private_network", ip: "192.168.77.20"
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+      minikube.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+end

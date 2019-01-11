@@ -1,0 +1,72 @@
+1  yum install epel-release -y
+2  yum install attr bind-utils docbook-style-xsl gcc gdb krb5-workstation        libsemanage-python libxslt perl perl-ExtUtils-MakeMaker        perl-Parse-Yapp perl-Test-Base pkgconfig policycoreutils-python        python2-crypto gnutls-devel libattr-devel keyutils-libs-devel        libacl-devel libaio-devel libblkid-devel libxml2-devel openldap-devel        pam-devel popt-devel python-devel readline-devel zlib-devel systemd-devel        lmdb-devel jansson-devel gpgme-devel pygpgme libarchive-devel
+3  cd /usr/local/src/
+4  wget https://download.samba.org/pub/samba/stable/samba-4.9.3.tar.gz
+5  yum install -y wget
+6  wget https://download.samba.org/pub/samba/stable/samba-4.9.3.tar.gz
+7  ls
+8  tar zxvpf samba-4.9.3.tar.gz
+9  cd samba-4.9.3/
+10  ./configure
+11  make
+12  make install
+13  ifconfig
+14  ip show addr
+15  ip addr show
+16  shutdown -h now
+17  yum install kernel-devel -y
+18  cat /etc/redhat-release
+19  ip addr show
+20  hostnamectl
+21  hostnamectl sambaad
+22  hostnamectl --set sambaad
+23  hostnamectl --help
+24  hostnamectl set-hostname samba-ad
+25  date
+26  cat /etc/resolv.conf
+27  systemctl status NetworkManager
+28  systemctl disable NetworkManager
+29  systemctl stop NetworkManager
+30  yum upgrade -y
+31  vi /etc/resolv.conf
+32  shutdown -r now
+33  cat /etc/resolv.conf
+34  man dhclient-script
+35  ip addr show
+36  shutdown -h now
+37  cat /home/vagrant/.ssh/authorized_keys
+38  ip addr show
+39  systemctl restart ssh
+40  systemctl ssh restart
+41  systemctl restart sshdd
+42  systemctl restart sshd
+43  ip addr show
+44  cat /root/.ssh/authorized_keys
+45  cat /etc/ssh/sshd_config
+46  cat /etc/ssh/sshd_config | grep Root
+47  vi /etc/ssh/sshd_config
+48  systemctl restart sshd
+49  cat > /etc/dhclient-enter-hooks
+50  chmod a+x /etc/dhclient-enter-hooks
+51  vi /etc/resolv.conf
+52  shutdown -r now
+53  cat /etc/re
+54  cat /etc/resolv.conf
+55  tail -f /var/log/secure
+56  shutdown -h now
+57  ip addr show
+58  cat /home/vagrant/.ssh/authorized_keys
+59  ifcon
+60  cat /etc/resolv.conf
+61  ls -lh /usr/sbin/dhclient-script
+62  chmod -x /usr/sbin/dhclient-script
+63  shutdown -h now
+64  ls -lh /etc/resolv.conf
+65  cat /etc/resolv.conf
+66  vi /etc/resolv.conf
+67  shutdown -h now
+68  cat /etc/resolv.conf
+69  tail -f /var/log/secure
+70  vi /etc/hosts
+71  vi /etc/profile
+72  history

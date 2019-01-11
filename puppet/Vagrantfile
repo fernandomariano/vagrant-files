@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+  SHELL
+
+  config.vm.define "ubuntu" do |ubuntu|
+      ubuntu.vm.hostname = "puppet-ubuntu1"
+      ubuntu.vm.box = "ubuntu/xenial64"
+      ubuntu.vm.box_check_update = false
+      ubuntu.vm.network "private_network", ip: "192.168.111.10"
+      config.vm.provider "virtualbox" do |vb|
+        vb.name = "puppet-ubuntu1"
+        vb.memory = "1024"
+      end
+  end
+
+  config.vm.define "centos" do |centos|
+      centos.vm.box = "bento/centos-7"
+      centos.vm.hostname = "puppet-centos1"
+      centos.vm.network "private_network", ip: "192.168.111.20"
+      centos.vm.box_check_update = false
+      config.vm.provider "virtualbox" do |vb|
+        vb.name = "puppet-centos1"
+        vb.memory = "1024"
+      end
+  end
+end

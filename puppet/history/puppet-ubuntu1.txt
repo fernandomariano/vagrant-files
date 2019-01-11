@@ -1,0 +1,153 @@
+1  vi /etc/ssh/sshd_config
+2  systemctl restart sshd
+3  wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
+4  dpkg -i puppetlabs-release-pc1-xenial.deb
+5  apt update
+6  cat /etc/apt/sources.list.d/puppetlabs-pc1.list
+7  apt install puppetmaster-passenger
+8  systemctl stop apache2
+9  apt info puppetmaster-passenger
+10  apt show  puppetmaster-passenger
+11  apt dist-upgrade -y
+12  shutdown -r now
+13  puppet resource package puppetmaster ensure=latest
+14  man puppet
+15  puppet help
+16  info puppet
+17  journalctl -e
+18  cat /etc/lsb-release
+19  puppet resource package puppetmaster ensure=latest
+20  puppet --help
+21  puppet --version
+22  hostname -f
+23  vi /etc/puppet/puppet.conf
+24  systemctl start puppetmaster
+25  journalctl -e
+26  journalctl -xe
+27  systemctl status apache2
+28  systemctl stop apache2
+29  systemctl start puppetmaster
+30  systemctl status puppetmaster
+31  netstat -anpl
+32  netstat -anpl  | grep 8140
+33  history
+34  puppet cert list
+35  puppet cert --help
+36  puppet cert --help | more
+37  puppet cert list
+38  puppet cert sign puppet-centos
+39  puppet cert sign puppet-centos1
+40  cd /etc/puppet/
+41  ls
+42  cat puppet.conf
+43  ls /var/lib/puppet/lib/facter
+44  cd /etc/puppet/modules/
+45  ls
+46  mkdir accounts
+47  cd accounts/
+48  ls
+49  mkdir {examples,files,manifests,templates}
+50  cd manifests/
+51  vi init.pp
+52  vi group.pp
+53  vi init.pp
+54  openssl passwd -1
+55  vi init.pp
+56  puppet parser validate init.pp
+57  echo $?
+58  cd ..
+59  vi examples/init.pp
+60  cd examples/
+61  puppet apply --noop init.pp
+62  ls
+63  cat init.pp
+64  puppet apply --noop init.pp
+65  vi ../manifests/init.pp
+66  ls
+67  cd ../manifests/
+68  ls
+69  mv group.pp groups.pp
+70  cd ../examples/
+71  ls
+72  puppet applyl --noop init.pp
+73  puppet apply --noop init.pp
+74  cat /etc/passwd
+75  cat /etc/group
+76  puppet apply init.pp
+77  vi ../manifests/init.pp
+78  puppet apply init.pp
+79  cat /etc/passwd
+80  cat /etc/group
+81  cd /etc/puppet/modules/accounts/files/
+82  ls
+83  cp -a /etc/ssh/sshd_config .
+84  ls
+85  vi sshd_config
+86  cd ..
+87  cd manifests/
+88  vi ssh.pp
+89  vi ssh.pp
+90  vi init.pp
+91  puppet parser validate ssh.pp
+92  puppet parser validate init.pp
+93  cd ../examples/
+94  puppet apply --noop init.pp
+95  cat ../manifests/ssh.pp
+96  puppet apply init.pp
+97  cat /etc/ssh/sshd_config | grep Root
+98  ifconfig
+99  systemctl restart sshd
+100  vi /etc/ssh/sshd_config
+101  systemctl restart sshd
+102  passwd root
+103  apt install iptables-persistent
+104  puppet module install puppetlabs-firewall
+105  cd /etc/puppet/modules/firewall/
+106  ls
+107  cd manifests/
+108  ls
+109  vi pre.pp
+110  vi post.pp
+111  iptables -L
+112  cat /etc/iptables/rules.v4
+113  cat /etc/iptables/rules.v6
+114  puppet parser validate pre.pp
+115  puppet parser validate post.pp
+116  cd ..
+117  ls
+118  mkdir examples
+119  cd examples/
+120  ls
+121  vi init.pp
+122  puppet parser validate init.pp
+123  puppet apply --noop init.pp
+124  puppet apply init.pp
+125  iptables -L
+126  cd /etc/puppet/manifests/
+127  puppet cert list --all
+128  vi site.pp
+129  history
+130  dpkg -l | grep puppet
+131  puppet cert list
+132  puppet cert list --all
+133  cat ini
+134  cd ..
+135  cd modules/accounts/manifests/
+136  ls
+137  cat init.pp
+138  cat groups.pp
+139  puppet config print
+140  ls /var/lib/puppet/ssl/
+141  ls /var/lib/puppet/ssl/cert
+142  ls /var/lib/puppet/ssl/certs
+143  puppet config print
+144  puppet config print  | grep -i env
+145  puppet module search apache
+146  puppet module search django
+147  puppet --version
+148  dpkg -l  | grep puppet
+149  puppet help
+150  cat /etc/default/puppet
+151  cat /etc/default/puppetmaster
+152  facter
+153  history

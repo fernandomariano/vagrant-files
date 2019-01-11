@@ -1,0 +1,34 @@
+1  vi /etc/hosts
+2  curl -L https://bootstrap.saltstack.com -o install_salt.sh
+3  sh install_salt.sh -P -A saltmaster-ce1
+4  cat /etc/salt/minion
+5  cat /etc/salt/minion | grep master_finger
+6  vi /etc/salt/minion
+7  systemctl restart salt-minion
+8  vi /etc/salt/minion
+9  systemctl restart salt-minion
+10  vi /etc/salt/minion
+11  systemctl restart salt-minion
+12  salt-call --local key.finger
+13  history
+14  salt-call --local key.finger
+15  vi /etc/salt/minion.d/grains.conf
+16  vi /etc/salt/minion.d/mine.conf
+17  systemctl restart salt-minion
+18  vi /etc/salt/minion.d/disabled.conf
+19  systemctl restart salt-minion
+20  vi /etc/salt/minion
+21  vi /etc/salt/minion.d/99-master-address.conf
+22  vi /etc/hosts
+23  systemctl restart salt-minion
+24  salt-call mine.get '*' network.ip_addr
+25  salt-call mine.get '*' network.ip_addrs
+26  systemctl restart salt-minion
+27  salt-call mine.get '*' network.ip_addrs
+28  salt-call mine.get '*' network.ip_addrs -l debug
+29  htop
+30  vi /etc/salt/minion.d/disabled.conf
+31  systemctl stop salt-minion
+32  vi /etc/salt/minion.d/disabled.conf
+33  systemctl restart salt-minion
+34  history 
