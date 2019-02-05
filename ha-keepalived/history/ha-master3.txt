@@ -1,0 +1,125 @@
+    1  systemctl restart keepalived
+    2  apt search keepalived 
+    3  apt install keepalived -y 
+    4  cat > /etc/keepalived/keepalived.conf
+    5  systemctl status keepalived
+    6  systemctl restart keepalived
+    7  systemctl status keepalived
+    8  ipvsadm 
+    9  ip addr show 
+   10  curl 192.168.77.30 
+   11  sysctl 
+   12  sysctl --all
+   13  systemctl restart keepalived
+   14  ip addr show 
+   15  curl 192.168.77.30 
+   16  ip addr show 
+   17  systemctl stop keepalived 
+   18  curl 192.168.77.30 
+   19  ip addr show 
+   20  systemctl restart keepalived
+   21  ip addr show 
+   22  curl 192.168.77.30 
+   23  tail -f /var/log/syslog 
+   24  iptables -L 
+   25  shutdown -h now
+   26  tail -f /var/log/syslog 
+   27  ifconfig 
+   28  vi /etc/keepalived/keepalived.conf 
+   29  systemctl restart keepalived
+   30  ip addr show 
+   31  curl 192.168.78.30 
+   32  vi /etc/keepalived/keepalived.conf 
+   33  systemctl restart keepalived
+   34  curl 192.168.78.30 
+   35  sestatus 
+   36  tcpdump 
+   37  vi /etc/keepalived/keepalived.conf 
+   38  systemctl restart keepalived
+   39  systemctl stop keepalived 
+   40  systemctl start keepalived 
+   41  curl 192.168.78.30 
+   42  curl 192.168.77.21
+   43  curl 192.168.77.22
+   44  curl 192.168.78.30 
+   45  sysctl -w net.ipv4.ip_nonlocal_bind=1
+   46  curl 192.168.78.30 
+   47  vi /etc/keepalived/keepalived.conf 
+   48  systemctl restart keepalived
+   49  ip addr show 
+   50  curl 192.168.78.30 
+   51  ficon
+   52  ifconfig
+   53  ip addr show 
+   54  curl 192.168.78.30 
+   55  netstat -atnp 
+   56  netstat -atnp  | grep 80
+   57  ps aux | grep keepalived 
+   58  systemctl stop keepalived 
+   59  ps aux | grep keepalived 
+   60  systemctl restart keepalived
+   61  ps aux | grep keepalived 
+   62  netstat -atnp  | grep 80
+   63  netstat -atnp  
+   64  vi /etc/keepalived/keepalived.conf 
+   65  ip addr show 
+   66  vi /etc/keepalived/keepalived.conf 
+   67  systemctl restart keepalived
+   68  ip addr show 
+   69  curl 192.168.78.30 
+   70  vi /etc/keepalived/keepalived.conf 
+   71  systemctl restart keepalived
+   72  curl 192.168.78.30 
+   73  curl 192.168.77.30 
+   74  netstat -atnp  
+   75  vi /etc/keepalived/keepalived.conf 
+   76  systemctl restart keepalived
+   77  ip addr show 
+   78  iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+   79  iptables -A FORWARD -i eth1 -o eth2 -m state RELATED,ESTABLISHED -j ACCEPT
+   80  iptables -A FORWARD -i eth1 -o eth2 -m state --state RELATED,ESTABLISHED -j ACCEPT
+   81  iptables -F
+   82  iptables -L
+   83  ifconfig 
+   84  iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE
+   85  iptables -A FORWARD -i eth2 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+   86  iptables -A FORWARD -i eth2 -o eth2 ACCEPT
+   87  iptables -A FORWARD -i eth2 -o eth2 -j ACCEPT
+   88  iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+   89  iptables -L 
+   90  sysctl -w net.ipv4.ip_nonlocal_bind=1
+   91  sysctl -w net.ipv4.ip_forward=1
+   92  curl 192.168.77.30 
+   93  ip addr show 
+   94  iptables -I INPUT -i eth2 -d 224.0.0.0/8 -p vrrp -j ACCEPT
+   95  iptables -I OUTPUT -o eth2 -d 224.0.0.0/8 -p vrrp -j ACCEPT
+   96  systemctl restart keepalived
+   97  curl 192.168.77.30 
+   98  ip addr show 
+   99  ipvsadm 
+  100  apt install ldirectord -y 
+  101  systemctl stop keepalived 
+  102  vi /etc/ha.d/ldirectord.cf 
+  103  systemctl restart ldirectord
+  104  ipvsadm
+  105  curl 192.168.78.200
+  106  apvsad --start-daemon=master --mcast-interface=eth2
+  107  apvsadm --start-daemon=master --mcast-interface=eth2
+  108  ipvsadm --start-daemon=master --mcast-interface=eth2
+  109  curl 192.168.78.200
+  110  shutdown -r now
+  111  systemctl restart ldirectord
+  112  ipvsadm
+  113  systemctl stop keepalived 
+  114  systemctl disable  keepalived 
+  115  shutdown -r now
+  116  systemctl status ldirectord
+  117  ip addr show 
+  118  systemctl status ldirectord
+  119  systemctl restart ldirectord
+  120  ip addr show 
+  121  ipvsadm --start-daemon=master --mcast-interface=eth2
+  122  ip addr show 
+  123  ipvsadm --stop-daemon
+  124  history 
+  125  history > /vagrant/history/ha-master3.txt

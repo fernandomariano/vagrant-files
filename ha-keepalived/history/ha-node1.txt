@@ -1,0 +1,68 @@
+    1  yum install nginx -y 
+    2  yum install epel-release -y 
+    3  yum install nginx -y 
+    4  systemctl start nginx 
+    5  locate index.html
+    6  updatedb
+    7  yum install mlocate -y 
+    8  updatedb 
+    9  locate index.html 
+   10  cat > /usr/share/nginx/html/index.html 
+   11  curl 192.168.77.30 
+   12  ping 192.168.77.30 
+   13  curl 192.168.77.30 
+   14  shutdown -h now
+   15  systemctl start nginx 
+   16  curl 192.168.77.30 
+   17  systemctl start nginx 
+   18  systemctl enable nginx 
+   19  curl 192.168.77.30 
+   20  sysctl --all
+   21  sysctl --all | grep arp 
+   22  sysctl -w net.ipv4.conf.all.arp_accept=1
+   23  curl 192.168.77.30 
+   24  arp 
+   25  curl 192.168.77.30 
+   26  sysctl -w net.ipv4.conf.all.arp_accept=1
+   27  arp -
+   28  arp -n
+   29  curl 192.168.77.30 
+   30  ping 192.168.77.30 
+   31  curl 192.168.77.30 
+   32  telnet 192.168.77.30 80
+   33  yum install telnet -y 
+   34  net.ipv4.conf.eth0.arp_filter = 1
+   35  net.ipv4.conf.eth0.arp_filter=1
+   36  sysctl -w net.ipv4.conf.eth0.arp_filter=1
+   37  sysctl -w net.ipv4.conf.all.arp_filter=1
+   38  curl 192.168.77.30 
+   39  curl 192.168.78.30 
+   40  ping 192.168.78.30 
+   41  ifconfig 
+   42  route -n
+   43  ping 192.168.77.11
+   44  ip route show 
+   45  route -n
+   46  ip route add default via 192.168.77.11 dev eth2
+   47  ip route add default via 192.168.77.11 dev eth1
+   48  ip route show 
+   49  ip route del default via 10.0.2.2 dev eth0
+   50  ip route 
+   51  systemctl stop nginx 
+   52  history 
+   53  systemctl status nginx 
+   54  systemctl start nginx 
+   55  systemctl status nginx 
+   56  ip route del default via 192.168.77.11 dev eth1
+   57  ip route add default via 192.168.77.12 dev eth1
+   58  systemctl stop nginx 
+   59  systemctl start nginx 
+   60  ip route del default via 192.168.77.11 dev eth1
+   61  ip route del default via 192.168.77.12 dev eth1
+   62  ip route add default via 192.168.77.100 dev eth1
+   63  systemctl stop nginx 
+   64  ip route show 
+   65  systemctl start nginx 
+   66  shutdown -h now
+   67  ls /vagrant/
+   68  history > /vagrant/history/hd-node1.txt

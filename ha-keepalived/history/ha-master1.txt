@@ -1,0 +1,446 @@
+    1  ipvsadm 
+    2  yum search ipvsadm 
+    3  apt install ipvsadm -y 
+    4  yu install ipvsadm -y 
+    5  yum install ipvsadm -y 
+    6  ipvsadm --help
+    7  man ipvsadm
+    8  yum search keepalived
+    9  yum info keepalived
+   10  apt install keepalived -y 
+   11  yum install keepalived -y 
+   12  man keepalived 
+   13  yum info ldirectord
+   14  yum info ldirector
+   15  yum provides ldirectord
+   16  yum install epel-release -y 
+   17  yum provides ldirectord
+   18  yum update -y 
+   19  yum provides ldirectord
+   20  yum search ipvsadm 
+   21  yum install ipvsadm -y 
+   22  lsmod | grep ip
+   23  systemctl status ipvsadm 
+   24  ipvsadm -l -n 
+   25  modprobe ip_vs
+   26  lsmod 
+   27  lsmod | grep ip
+   28  modinfo ip_vs
+   29  systemctl -w net.ipv4.ip_forward = 1
+   30  sysctl -w net.ipv4.ip_forward = 1
+   31  sysctl -w net.ipv4.ip_forward=1
+   32  sysctl -w net.ipv4.ip_nonlocal_bind=1
+   33  sysctl -p
+   34  man sysctl 
+   35  info sysctl 
+   36  sysctl -h
+   37  systemctl start ipvsadm 
+   38  systemctl status ipvsadm 
+   39  touch /etc/sysconfig/ipvsadm 
+   40  systemctl start ipvsadm 
+   41  systemctl status ipvsadm 
+   42  ipvsadm -l -n 
+   43  ipvsadm -C
+   44  ifconfig 
+   45  ipvsadm -A -t 192.168.77.11 -s rr
+   46  ipvsadm -A -t 192.168.77.11:80 -s rr
+   47  ipvsadm -l -n 
+   48  ipvsadm -C
+   49  ipvsadm -A -t 192.168.77.11:80 -s rr
+   50  ipvsadm -l -n 
+   51  ipvsadm -a -t 192.168.77.11:80 -r 192.168.77.21:80 -m 
+   52  ipvsadm -a -t 192.168.77.11:80 -r 192.168.77.22:80 -m 
+   53  ipvsadm -l -n 
+   54  telnet 192.168.77.11 80
+   55  yum install telnet -y 
+   56  telnet 192.168.77.11 80
+   57  curl localhost:80
+   58  curl 192.168.77.11:80
+   59  ifconfig 
+   60  iptables -L 
+   61  yum group install "Development Tools" -y 
+   62  wget http://keepalived.org/software/keepalived-2.0.12.tar.gz
+   63  ls
+   64  mv keepalived-2.0.12.tar.gz /usr/local/src/
+   65  cd /usr/local/src/
+   66  ls
+   67  tar zxvpf keepalived-2.0.12.tar.gz 
+   68  cd keepalived-2.0.12
+   69  ./configure 
+   70  yum search openssl | grep dev
+   71  yum install openssl-devel -y 
+   72  ./configure 
+   73  yum search libnl
+   74  yum install libnl3-devel -y 
+   75  ./configure 
+   76  make install 
+   77  make 
+   78  make install 
+   79  mkdir -p /etc/keepalived 
+   80  vi /etc/keepalived/keepalived.conf
+   81  systemctl status keepalived 
+   82  systemctl start keepalived 
+   83  systemctl status keepalived 
+   84  ip addr show
+   85  curl 192.168.30 
+   86  curl 192.168.77.30 
+   87  curl 192.168.77.30:80
+   88  ip addr show 
+   89  vi /etc/keepalived/keepalived.conf
+   90  systemctl stop keepalived 
+   91  systemctl restart keepalived 
+   92  ip addr show 
+   93  vi /etc/keepalived/keepalived.conf
+   94  systemctl restart keepalived 
+   95  ifconfig 
+   96  ip addr show 
+   97  curl 192.168.77.30 
+   98  curl 192.168.77.30:80 
+   99  curl http://192.168.77.30:80 
+  100  vi /etc/keepalived/keepalived.conf
+  101  cat /etc/keepalived/keepalived.conf
+  102  curl 192.168.77.21:80
+  103  curl 192.168.77.22:80
+  104  curl 192.168.77.30:80
+  105  history | grep yum
+  106  curl 192.168.77.30:80
+  107  ipvsadm -C
+  108  history | grep ipvsadm
+  109  ipvsadm -A -t 192.168.77.30 -s rr
+  110  ipvsadm -C
+  111  ipvsadm -A -t 192.168.77.30:80 -s rr
+  112  ipvsadm -a -t 192.168.77.11:80 -r 192.168.77.21:80 -m 
+  113  free -m
+  114  ipvsadm -a -t 192.168.77.30:80 -r 192.168.77.21:80 -m 
+  115  ipvsadm -a -t 192.168.77.30:80 -r 192.168.77.22:80 -m 
+  116  ipvsadm -l -n 
+  117  curl 192.168.77.30:80
+  118  ip addr show 
+  119  systemctl stop keepalived 
+  120  ipvsadm -l -n 
+  121  ip addr show 
+  122  ipvsadm -A -t 192.168.77.30:80 -s rr
+  123  ipvsadm -a -t 192.168.77.30:80 -r 192.168.77.22:80 -m 
+  124  ipvsadm -a -t 192.168.77.30:80 -r 192.168.77.21:80 -m 
+  125  ip addr show 
+  126  curl 192.168.77.30:80
+  127  ip addr show 
+  128  curl 192.168.77.30:80
+  129  ifconfig 
+  130  ip addr show 
+  131  systemctl restart keepalived 
+  132  ip addr show 
+  133  curl 192.168.77.30:80
+  134  systemctl stop keepalived 
+  135  curl 192.168.77.30:80
+  136  ipvsadm -l -n 
+  137  history 
+  138  cat /var/log/messages 
+  139  systemctl status keepalived 
+  140  systemctl restart keepalived 
+  141  systemctl status keepalived 
+  142  tail -f /var/log/messages 
+  143  cat /etc/keepalived/keepalived.conf 
+  144  systemctl status keepalived 
+  145  ip addr show 
+  146  curl 192.168.77.30:80
+  147  ipvsadm -l -n 
+  148  systemctl restart keepalived 
+  149  ip addr show 
+  150  ipvsadm -l -n 
+  151  curl 192.168.77.30:80
+  152  ip addr show 
+  153  curl 192.168.77.30:80
+  154  tail -f /var/log/messages 
+  155  vi /etc/keepalived/keepalived.conf
+  156  systemctl restart keepalived 
+  157  ipvsadm
+  158  curl 192.168.77.30:80
+  159  ip addr show 
+  160  ifconfig 
+  161  systemctl restart keepalived 
+  162  curl 192.168.77.30:80
+  163  ip addr show 
+  164  vi /etc/keepalived/keepalived.conf
+  165  curl 192.168.77.30:80
+  166  cd ..
+  167  cd keepalived-2.0.12
+  168  systemctl stop keepalived 
+  169  make uninstall 
+  170  cd ..
+  171  wget http://keepalived.org/software/keepalived-2.0.7.tar.gz
+  172  tar zxvpf keepalived-2.0.7.tar.gz 
+  173  cd keepalived-2.0.7
+  174  ./configure 
+  175  yum search libnfnetlink 
+  176  yum install libnfnetlink-devel 
+  177  ./configure 
+  178  make 
+  179  make install 
+  180  systemctl status keepalived 
+  181  systemctl restart keepalived 
+  182  cat /etc/keepalived/keepalived.conf 
+  183  ipvsadm
+  184  curl 192.168.77.30:80
+  185  ls
+  186  history 
+  187  tail -f /var/log/messages 
+  188  systemctl restart keepalived 
+  189  tail -f /var/log/messages 
+  190  ip addr show 
+  191  curl 192.168.77.30:80
+  192  curl 192.168.77.11:80
+  193  curl 192.168.77.30:80
+  194  ipvsadm -l -n 
+  195  curl 192.168.77.30:80
+  196  pign 192.168.77.30 
+  197  ping 192.168.77.30 
+  198  systemctl restart keepalived 
+  199  ip addr show 
+  200  curl 192.168.77.30:80
+  201  arp 
+  202  ping 192.168.77.11
+  203  arp 
+  204  systemctl stop keepalived 
+  205  arp 
+  206  curl 192.168.77.30:80
+  207  arp 
+  208  curl 192.168.77.30:80
+  209  make uninstall 
+  210  yum install keepalived -y 
+  211  systemctl status keepalived 
+  212  systemctl restart keepalived 
+  213  keepalived
+  214  ipvsadm
+  215  curl 192.168.77.30:80
+  216  keepalived --version
+  217  tail -f /var/log/messages 
+  218  keepalived --help
+  219  killall keepalived 
+  220  ps aux | grep keep
+  221  yum install pcsmisc 
+  222  yum install psmisc 
+  223  killall keepalived 
+  224  ls
+  225  ps aux | grep keep
+  226  keepalived -l 
+  227  killall keepalived 
+  228  ps aux | grep keep
+  229  killall keepalived -9 
+  230  keepalived --help
+  231  keepalived -L 
+  232  keepalived --help
+  233  keepalived -D
+  234  tail -f /var/log/messages 
+  235  ipvsadm 
+  236  ip addr show 
+  237  curl 192.168.77.30:80
+  238  vi /etc/keepalived/keepalived.conf
+  239  killall keepalived -9 
+  240  keepalived -lD
+  241  tail -f /var/log/messages 
+  242  curl 192.168.77.30:80
+  243  shutdown -r now
+  244  ipvsadm
+  245  keepalived -lD
+  246  tail -f /var/log/messages 
+  247  curl 192.168.77.30:80
+  248  arp
+  249  ip addr show
+  250  route -n
+  251  sysctl -w net.ipv4.ip_nonlocal_bind=1
+  252  sysctl -w net.ipv4.ip_forward=1
+  253  systemctl start ipvsadm 
+  254  ipvsadm
+  255  keepalived -lD
+  256  killall keepalived -9 
+  257  keepalived -lD
+  258  ipvsadm
+  259  curl 192.168.77.30:80
+  260  curl 192.168.77.30
+  261  tail -f /var/log/messages 
+  262  curl 192.168.77.30
+  263  lsmod | grep ip
+  264  vi /etc/keepalived/keepalived.conf
+  265  killall keepalived -9 
+  266  keepalived -lD
+  267  tail -f /var/log/messages 
+  268  vi /etc/keepalived/keepalived.conf
+  269  killall keepalived -9 
+  270  keepalived -lD
+  271  curl 192.168.77.30
+  272  cat /etc/sysconfig/network-scripts/ifcfg-eth0
+  273  cat /etc/sysconfig/network-scripts/ifcfg-eth1
+  274  shutdown -h now
+  275  ifconfig 
+  276  ip addr show 
+  277  sysctl -w net.ipv4.ip_forward=1
+  278  sysctl -w net.ipv4.ip_nonlocal_bind=1
+  279  keepalived -lD
+  280  tail -f /var/log/messages 
+  281  curl 192.168.77.30
+  282  ip addr show 
+  283  curl 192.168.77.30
+  284  killall keepalived -9 
+  285  curl 192.168.77.30
+  286  ip addr show 
+  287  killall keepalived -9 
+  288  keepalived -lD
+  289  killall keepalived
+  290  ip addr show 
+  291  curl 192.168.77.30
+  292  arp 
+  293  ifconfig 
+  294  curl 192.168.77.30
+  295  ipvsadm
+  296  cat /etc/keepalived/keepalived.conf 
+  297  sestatues
+  298  sestatus
+  299  curl 192.168.77.30 
+  300  sysctl -w net.ipv4.conf.all.drop_gratuitous_arp=0
+  301  curl 192.168.77.30 
+  302  shutdown -r now
+  303  echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+  304  sysctl  -p 
+  305  firewalld 
+  306  killall firewalld 
+  307  systemctl restart firewalld 
+  308  systemctl status  firewalld 
+  309  iptables -L 
+  310  firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface eth2 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+  311  firewall-cmd --direct --permanent --add-rule ipv4 filter OUTPUT 0 --out-interface eth2 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+  312  firewall-cmd --reload
+  313  vi /etc/keepalived/keepalived.conf
+  314  systemctl restart keepalived 
+  315  keepalived 
+  316  ip addr show 
+  317  shutdown -h now
+  318  ps aux | grep keep
+  319  systemctl status keepalived 
+  320  rpm -qa | grep keepalive
+  321  systemctl status keepalive
+  322  keepalived -lD
+  323  ip addr show 
+  324  curl 192.168.77.30 
+  325  curl 192.168.78.30 
+  326  vi /etc/keepalived/keepalived.conf 
+  327  ip addr show 
+  328  tail -f /var/log/messages 
+  329  killall keepalived
+  330  ip addr show
+  331  arp 
+  332  arp --help
+  333  arp
+  334  arp -d 192.168.77.30
+  335  arp
+  336  killall keepalived
+  337  keepalived -lD
+  338  ip addr show 
+  339  uptime 
+  340  iptables -L 
+  341  systemctl enable firewalld 
+  342  systemctl start firewalld 
+  343  iptables -L 
+  344  firewall-cmd --get-active-zones
+  345  firewall-cmd --zone=public --remove-interface=eth1
+  346  firewall-cmd --get-active-zones
+  347  firewall-cmd --reload
+  348  firewall-cmd --get-active-zones
+  349  systemctl stop NetworkManager
+  350  firewall-cmd --zone=public --remove-interface=eth1
+  351  firewall-cmd --get-active-zones
+  352  firewall-cmd --zone=internal --add-interface=eth1
+  353  firewall-cmd --permanent --zone=public --remove-interface=eth1
+  354  firewall-cmd --permanent --zone=internal --add-interface=eth1
+  355  firewall-cmd --get-active-zones
+  356  firewall-cmd --zone=public --add-masquerade
+  357  firewall-cmd --permanent --zone=public --add-masquerade
+  358  firewall-cmd --zone=public --query-masquerade
+  359  firewall-cmd --zone=internal --query-masquerade
+  360  firewall-cmd --permanent --zone=public --query-masquerade
+  361  firewall-cmd --permanent --zone=internal --query-masquerade
+  362  firewall-cmd --direct --permanent --add-rule ipv4 filter FORWARD 0 -i eth2 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+  363  firewall-cmd --direct --permanent --add-rule ipv4 filter FORWARD 0 -i eth1 -o eth2 -j ACCEPT
+  364  firewall-cmd --direct --permanent --add-rule ipv4 filter FORWARD 0 -j REJECT --reject-with icmp-host-prohibited
+  365  firewall-cmd --reload
+  366  firewall-cmd --zone=public --add-service=http
+  367  firewall-cmd --permanent --zone=public --add-service=http
+  368  firewall-cmd --reload
+  369  netstat -atnp 
+  370  ipvsadm
+  371  vi /etc/keepalived/keepalived.conf 
+  372  sestatus 
+  373  vi /etc/selinux/config 
+  374  systemctl restart keepalived 
+  375  killall keepalived
+  376  keepalived -lD
+  377  tail -f /var/log/messages 
+  378  ip addr show 
+  379  killall keepalived
+  380  shift 
+  381  history 
+  382  iptables -L 
+  383  tail -f /var/log/firewalld 
+  384  systemctl stop firewalld 
+  385  firewall --debug
+  386  firewalld --debug
+  387  tail -f /var/log/firewalld 
+  388  ip addr show 
+  389  keepalived 
+  390  killall keepalived
+  391  keepalived -lD
+  392  tail -f /var/log/firewalld 
+  393  killall firewalld
+  394  firewalld --debug=2
+  395  tail -f /var/log/firewalld 
+  396  killall firewalld
+  397  firewalld --debug=10
+  398  tail -f /var/log/firewalld 
+  399  firewall-cmd --set-log-denied=all
+  400  rpm -qa | grep firewalld
+  401  tail -f /var/log/firewalld 
+  402  ifconfig 
+  403  ip addr show 
+  404  history 
+  405  ip addr show 
+  406  history 
+  407  ip addr show 
+  408  killall keepalived
+  409  history 
+  410  history | cut -d " " -f 2
+  411  history | cut -d " " -f 3
+  412  history | cut -d " " -f 4
+  413  history | cut -d " " -f 5
+  414  history 
+  415  killall keepalived
+  416  keepalived -lD
+  417  ip addr show 
+  418  history 
+  419  killall keepalived
+  420  vi /etc/selinux/config 
+  421  vi /etc/keepalived/keepalived.conf 
+  422  killall keepalived
+  423  systemctl status NetworkManager
+  424  ip addr show 
+  425  vi /etc/keepalived/keepalived.conf 
+  426  killall keepalived
+  427  vi /etc/keepalived/keepalived.conf 
+  428  keepalived -lD
+  429  ip addr show 
+  430  history | grep direct 
+  431  firewall-cmd --direct --permanent --add-rule ipv4 filter INPUT 0 --in-interface eth1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+  432  firewall-cmd --direct --permanent --add-rule ipv4 filter OUTPUT 0 --out-interface eth1 --destination 224.0.0.18 --protocol vrrp -j ACCEPT
+  433  firewall-cmd --reload
+  434  killall keepalived
+  435  keepalived -lD
+  436  ip addr show 
+  437  killall keepalived
+  438  keepalived -lD
+  439  ip addr show 
+  440  killall keepalived
+  441  ip addr show 
+  442  ls
+  443  ls /va
+  444  ls /vagrant 
+  445  history 
+  446  history  > /vagrant/history/ha-master1.txt

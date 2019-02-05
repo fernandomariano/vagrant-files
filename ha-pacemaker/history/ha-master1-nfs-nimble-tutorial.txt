@@ -1,0 +1,41 @@
+fdisk -l
+mkfs.xfs /dev/sdb
+mkdir /nfsshare
+mount -t xfs /dev/sdb /nfsshare/
+ls /nfsshare/
+df -h
+umount /nfsshare/
+
+fdisk -l
+yum install -y nfs-utils.x86_64 libnfsidmap.x86_64 iscsi-initiator-utils.x86_64 device-mapper.x86_64 device-mapper-multipath.x86_64 pcs.x86_64
+yum install -y pcs fence-agents-all
+yum upgrade -y
+
+vi /etc/hosts
+passwd hacluster
+systemctl stop pcsd
+systemctl stop pcsd
+systemctl start pcsd
+systemctl enable pcsd
+systemctl status pcsd
+systemctl stop firewalld
+systemctl status firewalld
+systemctl disable firewalld
+
+pcs cluster auth ha-master1 ha-master2
+pcs cluster setup --start --name nfsserver ha-master1 ha-master2
+pcs cluster enable --all
+pcs cluster status
+
+pcs property set no-quorum-policy=ignore
+pcs property set stonith-enabled=false
+pcs resource defaults resource-stickiness=100
+
+pcs cluster status
+pcs resource create nfsclustervip IPaddr2 ip=192.168.77.200 cidr_netmask=24 --group nimblenfs
+pcs resource create nfsclustershare ocf:heartbeat:Filesystem device=/dev/sdb directory=/nfscluster fstype=xfs options="_netdev,noatime,nodiratime" fast_stop="no" force_unmount="safe" op stop on-fail=stop timeout=30 op monitor on-fail=stop timeout=30 OCF_CHECK_LEVEL=10 --group nimblenfs
+pcs resource create nfsclusterdaemon nfsserver nfs_shared_infodir=/nfsshare/nfsinfo nfs_no_notify=true nfsd_args=32 --group nimblenfs
+pcs resource create nfsclustershare1 exportfs clientspec=192.168.77.0/255.255.255.0 options=async,nohide,rw,no_root_squash directory=/nfscluster fsid=1 --group nimblenfs
+pcs resource create  nfsclusternotify nfsnotify source_host=192.168.77.200 --group nimblenfs
+pcs resource show
+pcs cluster status

@@ -1,0 +1,95 @@
+    1  yum install pacemaker pcs resource-agents 
+    2  systemctl start pcsd
+    3  systemctl enable pcsd
+    4  echo password | passwd --stdin hacluster
+    5  ping ha-master1
+    6  vi /etc/hosts
+    7  ping ha-master1
+    8  ping ha-master2
+    9  pcs status 
+   10  corosync-cfgtool -s 
+   11  vi /etc/hosts
+   12  shutdown -r now
+   13  corosync-cfgtool -s 
+   14  ip addr show 
+   15  pcs status 
+   16  pcs cluster start ha-master2
+   17  ip addr show 
+   18  yum install httpd wget -y 
+   19  systemctl  status firewalld 
+   20  systemctl  startfirewalld 
+   21  systemctl  start firewalld 
+   22  systemctl  enable firewalld 
+   23  pcs status 
+   24  firewall-cmd --permanent --add-service=http
+   25  firewall-cmd --permanent --add-service=high-availability
+   26  firewall-cmd --reload
+   27  ip addr show 
+   28  cat <<-END >/var/www/html/index.html
+   29   <html>
+   30   <body>My Test Site - $(hostname)</body>
+   31   </html>
+   32  END
+   33  cat <<-END >/etc/httpd/conf.d/status.conf
+   34   <Location /server-status>
+   35      SetHandler server-status
+   36      Require local
+   37   </Location>
+   38  END
+   39  curl localhost/server-status 
+   40  yum install epel-release -y 
+   41  rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+   42  rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+   43  yum install -y kmod-drbd84 drbd84-utils
+   44  firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.77.11" port port="7789" protocol="tcp" accept'
+   45  semanage permissive -a drdb_t
+   46  semanage permissive -a drbb_t
+   47  semanage permissive -a drbd_t
+   48  lvcreate --name drbd-demo --size 2M centos
+   49  cat <<END >/etc/drbd.d/wwwdata.res
+   50  resource wwwdata {
+   51   protocol C;
+   52   meta-disk internal;
+   53   device /dev/drbd1;
+   54   syncer {
+   55    verify-alg sha1;
+   56   }
+   57   net {
+   58    allow-two-primaries;
+   59   }
+   60   on ha-master1 {
+   61    disk   /dev/centos/drbd-demo;
+   62    address  192.168.77.11:7789;
+   63   }
+   64   on ha-master2 {
+   65    disk   /dev/centos/drbd-demo;
+   66    address  192.168.77.12:7789;
+   67   }
+   68  }
+   69  END
+   70  history 
+   71  drbdadm create-md wwwdata
+   72  modprobe drbd
+   73  drbdadm up wwwdata
+   74  cat /proc/drdb
+   75  cat /proc/drbd 
+   76  pcs status 
+   77  pcs cluster stop ha-master2
+   78  vi /var/www/html/index.html 
+   79  pcs status 
+   80  cat /var/www/html/index.html 
+   81  pcs status 
+   82  pcs cluster stop ha-master2
+   83  cat /var/www/html/index.html 
+   84  df -h
+   85  rm /var/www/html/index.html 
+   86  df -h
+   87  cat /var/www/html/index.html 
+   88  df -h
+   89  ls -lh /var/www/html/
+   90  cat /var/www/html/index.html 
+   91  yum install -y gfs2-utils dlm 
+   92  systemctl status dlm 
+   93  yum info dlm 
+   94  shutdown -h now
+   95  history > /vagrant/history/ha-master2-cluster-from-scratch-tutorial.txt

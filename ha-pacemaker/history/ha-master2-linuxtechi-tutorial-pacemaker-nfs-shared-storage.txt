@@ -1,0 +1,32 @@
+ll /dev/disk/by-id/
+vi /etc/hosts
+    yum upgrade -y
+    systemctl enable firewalld
+    systemctl start firewalld
+    firewall-cmd --permanent --add-service=high-availability
+    firewall-cmd --reload
+    yum install -y pcs fence-agents-all
+    systemctl enable pcsd
+    systemctl start pcsd
+    echo "password" | passwd --stdin hacluster
+ll /dev/disk/by-id/
+pcs status 
+pcs stonith show 
+yum install nfs-utils -y 
+partprobe 
+ls -lh /dev/sdb1 
+mkdir /nfsshare
+ifconfig 
+firewall-cmd --permanent --add-service=nfs
+firewall-cmd --permanent --add-service=mount
+firewall-cmd --permanent --add-service=mountd
+firewall-cmd --permanent --add-service=rpc-bind
+firewall-cmd --reload
+pcs status 
+ip addr show 
+cat /etc/exports
+pcs cluster stop 
+df -h
+history 
+history | cut -c 8-
+history | cut -c 8- > /vagrant/history/ha-master2-linuxtechi-tutorial-pacemaker-nfs-shared-storage.txt 

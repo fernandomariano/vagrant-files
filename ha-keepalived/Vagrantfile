@@ -1,0 +1,181 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "ha-master1" do |ha|
+    ha.vm.box = "ha-master1"
+    ha.vm.hostname = "ha-master1"
+    ha.vm.box = "bento/centos-7"
+    ha.vm.network "private_network", ip: "192.168.77.11"
+    ha.vm.network "private_network", ip: "192.168.78.11"
+    # config.vm.provider "virtualbox" do |vb|
+    #   vb.memory = "1024"
+    # end
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    ha.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+  config.vm.define "ha-master2" do |ha|
+    ha.vm.box = "ha-master2"
+    ha.vm.hostname = "ha-master2"
+    ha.vm.box = "bento/centos-7"
+    ha.vm.network "private_network", ip: "192.168.77.12"
+    ha.vm.network "private_network", ip: "192.168.78.12"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    ha.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+  end
+
+  config.vm.define "ha-master3" do |ha|
+    ha.vm.box = "ha-master3"
+    ha.vm.hostname = "ha-master3"
+    ha.vm.box = "bento/ubuntu-18.04"
+    ha.vm.network "private_network", ip: "192.168.77.13"
+    ha.vm.network "private_network", ip: "192.168.78.13"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    ha.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd ubuntu
+      mkdir /home/ubuntu/.ssh
+      echo #{ssh_pub_key} >> /home/ubuntu/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/ubuntu/.ssh/id_rsa
+      chmod 400 /home/ubuntu/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel ubuntu
+      systemctl restart sshd
+    SHELL
+  end
+
+  config.vm.define "ha-master4" do |ha|
+    ha.vm.box = "ha-master4"
+    ha.vm.hostname = "ha-master4"
+    ha.vm.box = "bento/ubuntu-18.04"
+    ha.vm.network "private_network", ip: "192.168.77.14"
+    ha.vm.network "private_network", ip: "192.168.78.14"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    ha.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd ubuntu
+      mkdir /home/ubuntu/.ssh
+      echo #{ssh_pub_key} >> /home/ubuntu/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/ubuntu/.ssh/id_rsa
+      chmod 400 /home/ubuntu/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel ubuntu
+      systemctl restart sshd
+    SHELL
+  end
+
+  config.vm.define "ha-node1" do |ha|
+    ha.vm.box = "ha-node1"
+    ha.vm.hostname = "ha-node1"
+    ha.vm.box = "bento/centos-7"
+    ha.vm.network "private_network", ip: "192.168.77.21"
+
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+
+    ha.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+
+  end
+  config.vm.define "ha-node2" do |ha|
+    ha.vm.box = "ha-node2"
+    ha.vm.hostname = "ha-node2"
+    ha.vm.box = "bento/centos-7"
+    ha.vm.network "private_network", ip: "192.168.77.22"
+    ssh_pub_key = File.readlines("files/id_rsa.pub").first.strip
+    ha.vm.provision "shell", run: "always", inline: <<-SHELL
+      useradd centos
+      mkdir /home/centos/.ssh
+      echo #{ssh_pub_key} >> /home/centos/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /home/centos/.ssh/id_rsa
+      chmod 400 /home/centos/.ssh/id_rsa
+      mkdir /root/.ssh
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+      cp -a "/vagrant/files/id_rsa" /root/.ssh/id_rsa
+      chmod 400 /root/.ssh/id_rsa
+      cp -a "/vagrant/files/sshd_config" /etc/ssh/sshd_config
+      cp -a "/vagrant/files/sudoers" /etc/sudoers
+      chown root.root /etc/sudoers
+      chmod 660 /etc/sudoers
+      usermod -a -G wheel centos
+      systemctl restart sshd
+      yum upgrade kernel -y
+      yum install kernel-devel -y
+    SHELL
+
+  end
+
+end

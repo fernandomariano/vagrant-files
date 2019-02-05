@@ -1,0 +1,27 @@
+    1  apt install keepalived -y 
+    2  curl 192.168.77.30 
+    3  cat > /etc/keepalived/keepalived.conf
+    4  systemctl restart keepalived 
+    5  systemctl status keepalived 
+    6  ipvsadm 
+    7  curl 192.168.77.30 
+    8  ip addr show 
+    9  systemctl restart keepalived 
+   10  curl 192.168.77.30 
+   11  ip addr show 
+   12  curl 192.168.77.30 
+   13  systemctl restart keepalived 
+   14  ip addr show 
+   15  curl 192.168.77.30 
+   16  arp -n
+   17  systemctl restart keepalived 
+   18  curl 192.168.77.30 
+   19  shutdown -h now
+   20  vi /etc/keepalived/keepalived.conf 
+   21  systemctl restart keepalived 
+   22  curl 192.168.78.30 
+   23  ip address list 
+   24  systemctl stop keepalived 
+   25  curl 192.168.77.30 
+   26  shutdown -h now
+   27  history > /vagrant/history/ha-master4.txt

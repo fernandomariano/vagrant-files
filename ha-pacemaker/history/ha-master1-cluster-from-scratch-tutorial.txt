@@ -1,0 +1,355 @@
+    1  shutdown -h now
+    2  yum install pacemaker pcs resource-agents 
+    3  yum upgrade -y 
+    4  systemctl start pcsd
+    5  systemctl enable pcsd
+    6  cat /etc/passwd | grep hacluster
+    7  echo password | passwd --stdin hacluster
+    8  ping ha-master1
+    9  ping ha-master2
+   10  vi /etc/hosts
+   11  cat /etc/hosts
+   12  history 
+   13  cat /etc/hosts
+   14  ping ha-master1
+   15  ping ha-master2
+   16  systemctl status pcsd
+   17  pcs cluster auth ha-master1 ha-master2 -u hacluster -p password --force
+   18  pcs cluster setup --force --name pacemaker1 ha-master1 ha-master2
+   19  pcs cluster start --all
+   20  systemctl status pcsd
+   21  pcs property set stonith-enabled=false
+   22  pcs property set no-quorum-policy=ignore
+   23  pcs resource defaults migration-threshold=1
+   24  pcs status 
+   25  pcs resource create my_first_svc Dummy op monitor interval=120s
+   26  pcs resource create my_first_svc ocf:pacemaker:Dummy op monitor interval=120s
+   27  pcs status 
+   28  crm_mon -1
+   29  crm_resource --resource my_first_svc --force-stop
+   30  pcs status 
+   31  cat /etc/sysconfig/network-scripts/ifcfg-eth1 
+   32  cat /etc/sysconfig/network-scripts/ifcfg-eth2
+   33  ip route 
+   34  yum update -y 
+   35  uname -n 
+   36  uname 
+   37  uname --help
+   38  yum install -y pacemaker pcs psmisc policycoreutils-python
+   39  systemctl start firewalld 
+   40  systemctl enable firewalld 
+   41  firewall-cmd --permanent --add-service=high-availability
+   42  firewall-cmd --reload
+   43  iptables -L 
+   44  cat /etc/corosync/corosync.conf
+   45  pcs
+   46  pacemakerd --features
+   47  pcs status cluster 
+   48  pcs status
+   49  pcs status help
+   50  pcs status nodes 
+   51  pcs status coresync 
+   52  pcs status --help
+   53  pcs status help
+   54  pcs status --full
+   55  coresync-cfgtool 
+   56  yum provides coresync-cfgtool 
+   57  yum search coresync 
+   58  corosync-cfgtool -s 
+   59  vi /etc/hosts
+   60  shutdown -r now
+   61  crm_mon 
+   62  yum info pacemaker 
+   63  pcs status --full
+   64  pcs cluster start --all
+   65  corosync-cfgtool -s 
+   66  pcs status --full
+   67  pcs cluster start --all
+   68  corosync-cmapctl 
+   69  corosync-cmapctl | grep members
+   70  pcs status coresync 
+   71  pcs status corosync 
+   72  ps axf 
+   73  pcs status 
+   74  journalctl -b 
+   75  journalctl -b | grep -i error 
+   76  journalctl -b
+   77  pcs status 
+   78  pcs cluster cib 
+   79  crm_verify -L -V
+   80  crm_verify -L
+   81  pcs resource create ClusterIP ocf:heartbeat:IPaddr2 ip=192.168.77.200 cidr_netmask=32 op monitor interval=30s
+   82  pcs status 
+   83  ip addr show 
+   84  pcs resource standards 
+   85  pcs resource providers 
+   86  pcs resource agents ocf:heartbeat 
+   87  pcs status 
+   88  pcs cluster stop ha-master2
+   89  ip addr show 
+   90  pcs status 
+   91  pcs resource defaults resource-stickiness=100
+   92  pcs resouce defaults 
+   93  pcs resoruce defaults 
+   94  pcs resource defaults 
+   95  yum install -y wget httpd 
+   96  pcs status 
+   97  pcs cluster stop ha-master2
+   98  pcs cluster start --all
+   99  ip addr show 
+  100  cat <<-END >/var/www/html/index.html
+  101  <html>
+  102  <body>My test site - $(hostname)</body>
+  103  </html>
+  104  END
+  105  cat <<-END >/etc/httpd/conf.d/status.conf
+  106   <Location /server-status>
+  107      SetHandler server-status
+  108      Require local
+  109   </Location>
+  110  END
+  111  curl localhost
+  112  systemctl start httpd 
+  113  curl localhost
+  114  curl localhost/server-status 
+  115  ifconfig 
+  116  firewall-cmd --permanent --add-service=http
+  117  firewall-cmd --reload
+  118  vi /etc/httpd/conf.d/status.conf
+  119  systemctl restart httpd 
+  120  systemctl stop httpd 
+  121  vi /etc/httpd/conf.d/status.conf
+  122  pcs resource create WebSite ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf statusurl="http://localhost/server-status" op monitor interval=1min
+  123  pcs resource op defaults timeout=240s 
+  124  pcs resource op defaults 
+  125  pcs status 
+  126  curl localhost/server-status 
+  127  pcs constraint colocation add WebSite with ClusterIP INFINITY
+  128  pcs constraint 
+  129  pcs status 
+  130  pcs constraint order ClusterIP then WebSite 
+  131  crm_simulate -sL
+  132  pcs status 
+  133  pcs constraint 
+  134  pcs constraint  location WebSite prefers ha-master1=50
+  135  pcs constraint 
+  136  pcs status 
+  137  crm_simulate -sL
+  138  pcs status 
+  139  pcs resource move WebSite ha-master2 
+  140  pcs status 
+  141  pcs resource move WebSite ha-master1
+  142  pcs cluster stop ha-master1
+  143  pcs cluster start ha-master1
+  144  pcs constraint 
+  145  pcs status 
+  146  pcs resource clean WebSite 
+  147  pcs resource clear WebSite 
+  148  pcs constraint 
+  149  pcs status 
+  150  pcs resource move WebSite ha-master2 
+  151  pcs status 
+  152  pcs resource clear WebSite 
+  153  pcs status 
+  154  pcs resource move WebSite ha-master21
+  155  pcs resource move WebSite ha-master1
+  156  pcs status 
+  157  pcs constraint --full 
+  158  yum install epel-release -y 
+  159  yum install -y kmod-drbd84 drbd84-utils
+  160  yum search drbd
+  161   yum install -y kmod-drbd84 drbd84-utils
+  162  yum install epel-release -y 
+  163  drbdadm 
+  164  yum provides drbdadm 
+  165  rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+  166  rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+  167   yum install -y kmod-drbd84 drbd84-utils
+  168  history 
+  169  semanage permissive -a drdb_t 
+  170  semanage permissive -a drbd_t 
+  171  firewall-cmd --permanent --add-rich-rule='rule family-"ipv4" source address="192.168.77.12" port port="7789" protocol="tcp" accept' 
+  172  firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.77.12" port port="7789" protocol="tcp" accept' 
+  173  firewall-cmd --reload
+  174  vgdisplay 
+  175  df -h
+  176  vgdisplay 
+  177  vgdisplay  | grep -e Name -e Free
+  178  vgdisplay 
+  179  lvcreate --name drbd-demo --size 512M centos_ha-master1
+  180  lvcreate --name drbd-demo --size 512M centos
+  181  lvcreate --name drbd-demo --size 2M centos
+  182  cat <<END >/etc/drbd.d/wwwdata.res
+  183  resource wwwdata {
+  184   protocol C;
+  185   meta-disk internal;
+  186   device /dev/drbd1;
+  187   syncer {
+  188    verify-alg sha1;
+  189   }
+  190   net {
+  191    allow-two-primaries;
+  192   }
+  193   on ha-master1 {
+  194    disk   /dev/centos/drbd-demo;
+  195    address  192.168.77.11:7789;
+  196   }
+  197   on ha-master2 {
+  198    disk   /dev/centos/drbd-demo;
+  199    address  192.168.77.12:7789;
+  200   }
+  201  }
+  202  END
+  203  cat /etc/drbd.d/wwwdata.res 
+  204  ls /dev/centos/drbd-demo 
+  205  history 
+  206  drbdadm create-md wwwdata
+  207  modprobe drbd
+  208  drbdadm up wwwdata
+  209  cat /proc/drbd 
+  210  drbdadm primary --force wwwdata
+  211  cat /proc/drbd 
+  212  mkfs.xfs /dev/drbd1 
+  213  mkfs.ext3 /dev/drbd1 
+  214  mount /dev/drbd1 /mnt/
+  215  cat <<-END >/mnt/index.html
+  216   <html>
+  217    <body>My Test Site - DRBD</body>
+  218   </html>
+  219  END
+  220  chcon --help
+  221  ls -lhZ /mnt/index.html 
+  222  chcon -R --reference=/var/www/html /mnt
+  223  ls -lhZ /mnt/index.html 
+  224  umount /dev/drbd1 
+  225  pcs cluster cib drbd_cfg 
+  226  pcs -f drbd_cfg resource create WebData ocf:linbit:drbd drbd_resource=wwwdata op monitor interval=60s
+  227  pcs -f drbd_cfg resource master WebDataClone WebData master-max=1 master-node-max=1 clone-max=2 clone-node-max=1 notify=true
+  228  pcs -f drbd_cfg resource show 
+  229  pcs cluster cib-push drbd_cfg --config 
+  230  pcs cluster 
+  231  pcs status
+  232  pcs cluster cib fs_cfg 
+  233  pcs -f fs_cfg resource create WebFS Filesystem device="/dev/drbd1" directory="/var/www/html" fstype="ext3"
+  234  pcs -f fs_cfg constraint colocation add WebFS with WebDataClone INFINITY with-rsc-role=Master
+  235  pcs -f fs_cfg constraint order promote WebDataClone then start WebFS
+  236  pcs -f fs_cfg constraint colocation add WebSite with WebFS INFINITY 
+  237  pcs -f fs_cfg constraint order WebFS then WebSite
+  238  pcs -f fs_cfg constraint 
+  239  pcs -f fs_cfg resource show 
+  240  pcs cluster cib-push fs_cfg --config 
+  241  pcs status 
+  242  history 
+  243  pcs status 
+  244  pcs cluster unstandby ha-master1
+  245  pcs status 
+  246  pcs cluster unstandby ha-master1
+  247  pcs status 
+  248  pcs cluster stop ha-master1
+  249  pcs status 
+  250  pcs cluster start ha-master1
+  251  pcs status 
+  252  cat /var/www/html/index.html 
+  253  pcs status 
+  254  pcs cluster stop ha-master1
+  255  pcs cluster stop ha-master2
+  256  pcs cluster start ha-master1
+  257  cat /var/www/html/index.html 
+  258  pcs cluster start ha-master1
+  259  pcs status 
+  260  cat /var/www/html/index.html 
+  261  vi /var/www/html/index.html 
+  262  cat /var/www/html/index.html 
+  263  history 
+  264  pcs status 
+  265  pcs cluster start ha-master2
+  266  pcs status 
+  267  df -h
+  268  pcs cluster stop ha-master2
+  269  pcs status 
+  270  pcs cluster start ha-master2
+  271  pcs cluster stop ha-master1
+  272  cat /var/www/html/index.html 
+  273  pcs cluster stop ha-master1
+  274  df -h
+  275  cat /var/www/html/index.html 
+  276  rm /var/www/html/index.html 
+  277  df -h
+  278  ls /var/www/html/
+  279  pcs cluster start ha-master1
+  280  cat /var/www/html/index.html 
+  281  pcs status 
+  282  pcs cluster stop ha-master1
+  283  pcs cluster start ha-master1
+  284  yum search fence-
+  285  pcs stonith list | 
+  286  yum search fence- | grep milan
+  287  yum install fence-agents-ipmilan.x86_64
+  288  yum search fence- | grep vbox
+  289  yum search fence | grep vbox
+  290  pcs stonith describe fence_ipmilan 
+  291  pcs cluster cib stonith_cfg 
+  292  pcs -f stonith_cfg sotnigh create ipmi-fencing fence_ipmilan pcmk_host_list="ha-master1 ha-master2" ipaddr=10.0.0.1 login=testuser passwd=123456 op monitor interval=60s
+  293  pcs -f stonith_cfg stonigh create ipmi-fencing fence_ipmilan pcmk_host_list="ha-master1 ha-master2" ipaddr=10.0.0.1 login=testuser passwd=123456 op monitor interval=60s
+  294  pcs -f stonith_cfg stonith create ipmi-fencing fence_ipmilan pcmk_host_list="ha-master1 ha-master2" ipaddr=10.0.0.1 login=testuser passwd=123456 op monitor interval=60s
+  295  pcs -f stonith_cfg stonith
+  296  pcs -f stonigh_cfg property set stonith-enabled=true 
+  297  pcs -f stonith_cfg property 
+  298  pcs -f stonith_cfg property set stonith-enabled=true 
+  299  pcs -f stonith_cfg property 
+  300  pcs cluster cib-push stonith_cfg --config
+  301  pcs cluster status 
+  302  pcs status 
+  303  stonith_admin --reboot ha-master2
+  304  yum install -y gfs2-utils dlm 
+  305  pcs cluster cib dlm_cfg 
+  306  pcs -f dlm_cfg resource create dlm ocf:pacemaker:controld op monitor interval=60s
+  307  pcs -f dlm_cfg resource clone dlm clone-max=2 clone-node-max=1
+  308  pcs -f dlm_cfg resource show 
+  309  pcs cluster cib-push dlm_cfg --config 
+  310  pcs status 
+  311  pcs resource disable WebFS
+  312  pcs resource
+  313  pcs resourcemkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drdb1
+  314  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drdb1
+  315  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drbd1 
+  316  parted /dev/drdb1
+  317  parted /dev/drdb
+  318  df -h
+  319  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drbd1 
+  320  fdisk /dev/drbd
+  321  lvdisplay 
+  322  parted /dev/centos/drbd-demo 
+  323  history 
+  324  cat /etc/drbd.d/wwwdata.res 
+  325  drbdadm create-md wwwdata
+  326  pcs cluster stop ha-master1
+  327  drbdadm create-md wwwdata
+  328  modprobe drbd
+  329  drbdadm up wwwdata
+  330  drbdadm primary --force wwwdata
+  331  pcs cluster start ha-master1
+  332  pcs resource
+  333  df -h
+  334  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drbd1 
+  335  parted /dev/centos/drbd-demo 
+  336  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drbd1 
+  337  mkfs.gfs2 --help
+  338  mkfs --help
+  339  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drbd1 
+  340  dd if=/dev/zero of=/dev/drbd1 bs=512 count=1024
+  341  mkfs.gfs2 -p lock_dlm -j 2 -t mycluster:web /dev/drbd1 
+  342  lvdisplay 
+  343  vgdisplay 
+  344  pcs --help
+  345  pcs cluster help
+  346  pcs property 
+  347  cat /etc/corosync/corosync.conf
+  348  ls /vagrant/
+  349  shutdown -r now
+  350  route -n
+  351  ls /vagrant/
+  352  shutdown -h now
+  353  history 
+  354  ls /vagrant/
+  355  history > /vagrant/history/ha-master1-cluster-from-scratch-tutorial.txt

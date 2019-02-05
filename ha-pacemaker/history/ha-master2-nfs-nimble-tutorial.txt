@@ -1,0 +1,28 @@
+mkdir /nfsshare
+mount -t xfs /dev/sdb /nfsshare/
+df -h
+umount /nfsshare/
+
+yum install -y nfs-utils.x86_64 libnfsidmap.x86_64 iscsi-initiator-utils.x86_64 device-mapper.x86_64 device-mapper-multipath.x86_64 pcs.x86_64
+yum upgrade -y
+yum install -y pcs fence-agents-all
+vi /etc/hosts
+passwd hacluster
+systemctl stop pcsd
+systemctl start pcsd
+systemctl enable pcsd
+systemctl status pcsd
+systemctl stop firewalld
+systemctl status firewalld
+systemctl disable firewalld
+
+
+pcs resource show
+pcs cluster status
+pcs resource
+ls -lh /nfscluster/
+pcs cluster stop
+ls -lh /nfscluster/
+systemctl start pcsd
+pcs cluster start
+pcs resource
