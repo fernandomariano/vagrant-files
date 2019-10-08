@@ -1,0 +1,41 @@
+References:
+  https://www.mankier.com/8/fence_aws
+
+cat >> /etc/hosts
+10.0.1.50    ha-master1
+10.0.1.204    ha-master2
+10.0.1.165    ha-master3
+
+yum install -y pcs fence-agents-all fence-agents-aws
+
+yum upgrade -y
+systemctl stop pcsd
+systemctl start pcsd
+systemctl enable pcsd
+systemctl status pcsd
+systemctl stop firewalld
+systemctl status firewalld
+systemctl disable firewalld
+
+echo password | passwd --stdin hacluster
+
+pcs cluster auth ha-master1 ha-master2 ha-master3 -u hacluster -p password
+pcs cluster setup --start --name nfsserver ha-master1 ha-master2 ha-master3
+pcs cluster enable --all
+pcs resource create nfsclustervip IPaddr2 ip=10.0.1.200 cidr_netmask=24
+pcs status
+pcs resource
+
+pcs cluster cib ciblocal
+pcs -f ciblocal stonith create fenceagent fence_aws region=us-east-1 access_key="aaaaaaaaaaaaaaaa" secret_key="bbbbbbbbbbbbbb" pcmk_host_map="ha-master2:i-aaaaaaaaaa;ha-master1:i-aaaaaaaaaaaa;ha-master3:i-aaaaaaaaaaaaaaaaa"
+pcs -f ciblocal property set stonith-enabled=true
+pcs cluster cib-push ciblocal
+
+fence_aws --plug=i-02a83bc40ccab335f --region=us-east-1 --access-key=aaaaaaaaaa --secret-key=bbbbbbbbbbbbbbbb -o status
+
+pcs status
+pcs status --full
+pcs stonith
+
+stonith_admin --reboot ha-master1
+stonith_admin --fence ha-master1

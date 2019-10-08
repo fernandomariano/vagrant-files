@@ -1,0 +1,173 @@
+yum install nfs-utils nfs-utils-lib
+yum install nfs-utils nfs-utils-lib -y 
+yum search nfs-utils-lib 
+yum search nfs-utils
+vi /etc/hosts
+vi /etc/fstab 
+mkdir /nfsshare
+showmount -e ha-master
+mount /nfsshare
+mkdir /nfsshare/test
+mkdir /nfsshare/test-master2
+cat /etc/fstab 
+cat /etc/hosts
+shutdown -h now
+cat /etc/fstab 
+df -h
+htop
+yum install htop -y 
+htop 
+cat /etc/fstab 
+nfsometer examples | more
+nfsometer --version
+rpm -qa | grep nfsometer
+cd /usr/local/src/
+wget http://www.linux-nfs.org/~dros/nfsometer/releases/nfsometer-1.9.tar.gz
+ls
+tar zxvpf nfsometer-1.9.tar.gz 
+cd nfsometer-1.9
+ls
+./nfsometer.py 
+./nfsometer.py examples 
+./nfsometer.py workloads
+cat /etc/fstab 
+cd /usr/local/src/
+df -h
+wget df -h
+df -h
+mount -a 
+df -h
+cd /nfsshare/
+ls
+wget http://mirror.it.ubc.ca/ubuntu-releases/18.04.1/ubuntu-18.04.1-desktop-amd64.iso
+md5sum ubuntu-18.04.1-desktop-amd64.iso
+md5sum ubuntu-18.04.1-desktop-amd64.iso*
+rm ubuntu-18.04.1-desktop-amd64.iso
+mv ubuntu-18.04.1-desktop-amd64.iso.1 ubuntu-18.04.1-desktop-amd64.iso
+df -h
+mv ubuntu-18.04.1-desktop-amd64.iso /root/
+time mv /root/ubuntu-18.04.1-desktop-amd64.iso /nfsshare/
+ll /nfsshare/
+ll -lh /nfsshare/
+time cp -a /nfsshare/ubuntu-18.04.1-desktop-amd64.iso /root/
+ /root/ubuntu-18.04.1-desktop-amd64.iso 
+rsync /nfsshare/ /root/
+rsync -a /nfsshare/ /root/
+ls -lh /nfsshare/ubuntu-18.04.1-desktop-amd64.iso 
+ls -lh /nfsshare/ubuntu-18.04.1-desktop-amd64.iso /root/ubuntu-18.04.1-desktop-amd64.iso 
+md5sum /nfsshare/ubuntu-18.04.1-desktop-amd64.iso /root/ubuntu-18.04.1-desktop-amd64.iso 
+rm /nfsshare/ubuntu-18.04.1-desktop-amd64.iso
+cd /root/
+history 
+showmount -e ha-master
+cat /etc/fstab 
+mount /nfsshare
+df -h
+ls /nfsshare/
+watch -n 1 ls /nfsshare/
+vi /etc/fstab 
+cat /etc/fstab 
+mkdir /nfssingle 
+vi /etc/hosts
+df -h
+mount /nfssingle
+ifconfig 
+mount /nfssingle
+df -h
+yum search nfsometer
+yum install -y nfsometer 
+nfsometer
+nfsometer examples 
+nfsometer notes 
+nfsometer workloads 
+yum search bonnie 
+yum install epel-release -y 
+yum search bonnie iozone 
+yum install bonnie++
+df -h
+nfsometer workloads 
+iozone 
+yum provides iozone 
+cd /usr/local/src/
+wget http://www.iozone.org/src/current/iozone3_487.tar
+tar zxvpf iozone3_487.tar 
+tar xvpf iozone3_487.tar 
+cd iozone3_487
+ls
+cd src/
+ls
+cd current/
+ls
+make
+make linux 
+make install 
+ls
+make linux 
+ls
+ls iozone
+ln -s /sbin/iozone /usr/local/src/iozone3_487/src/current/iozone
+ln -s /usr/local/src/iozone3_487/src/current/iozone /sbin/iozone 
+iozone 
+nfsometer workloads 
+nfsometer examples 
+nfsometer -n 3 ha-master:/nfscluster cthon
+\df -h
+df -h
+umount /nfss*
+df -h
+nfsometer -n 3 ha-master:/nfscluster cthon
+nfsometer -n 3 -o v3 ha-master:/nfscluster cthon
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 -o v3 ha-master:/nfscluster cthon
+/usr/local/src/nfsometer-1.9/nfsometer.py --help
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 -o v3 ha-master:/nfs cthon
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master5:/nfssingle cthon
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master5:/nimblenfs cthon
+/usr/local/src/nfsometer-1.9/nfsometer.py reports
+/usr/local/src/nfsometer-1.9/nfsometer.py report
+df -h
+history 
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master:/nfscluster cthon
+cp -a /root/nfsometer_results/ /vagrant/
+ls -lh /root/ /nfsshare/
+df -h
+du -hsc /root/*
+du -hsc /nfsshare/*
+ls /nfsshare/nfsometer_runroot_ha-node1/
+df -h
+ls /root/nfsometer_results/
+du -hsc /root/nfsometer_results/
+df -h
+umount /nfsshare/
+cd /root/
+mount /nfsshare
+df -h
+umount /nfsshare/
+mount /nfsshare
+df -h
+umount /nfsshare/
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master:/nfscluster cthon
+ping ha-master
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master:/nfscluster cthon
+history 
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master:/nfscluster cthon
+df -h
+umount /nfssingle/
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master:/nfscluster cthon -t sync-mode-on
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 ha-master:/nfscluster -t sync-mode-on cthon
+/usr/local/src/nfsometer-1.9/nfsometer.py -n 3 -t sync-mode-on ha-master:/nfscluster cthon
+cp -a /root/nfsometer_results/ /vagrant/
+cp -aRf /root/nfsometer_results/ /vagrant/
+alias
+rm -rf /vagrant/nfsometer_results/
+cp -a /root/nfsometer_results/ /vagrant/
+cp -a /root/nfsometer_results /vagrant/
+df -h
+ls /vagrant/
+rm -rf /vagrant/nfsometer_results
+df -h
+umount /vagrant
+mount /vagrant
+shutdown -h now
+history 
+history | cut -c 8-
+history | cut -c 8- > /vagrant/history/ha-node1-nimble-tutorial.txt

@@ -7,7 +7,7 @@ yum install -y nfs-utils.x86_64 libnfsidmap.x86_64 iscsi-initiator-utils.x86_64 
 yum upgrade -y
 yum install -y pcs fence-agents-all
 vi /etc/hosts
-passwd hacluster
+echo password | passwd hacluster --stdin
 systemctl stop pcsd
 systemctl start pcsd
 systemctl enable pcsd

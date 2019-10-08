@@ -1,81 +1,81 @@
-fdisk -l 
+fdisk -l
 df -h
 ll /dev/disk/by-id/
 vi /etc/hosts
 cat /etc/hosts
-    yum upgrade -y
-    systemctl enable firewalld
-    systemctl start firewalld
-    firewall-cmd --permanent --add-service=high-availability
-    firewall-cmd --reload
-    yum install -y pcs fence-agents-all
-    systemctl enable pcsd
-    systemctl start pcsd
-    echo "password" | passwd --stdin hacluster
+yum upgrade -y
+systemctl enable firewalld
+systemctl start firewalld
+firewall-cmd --permanent --add-service=high-availability
+firewall-cmd --reload
+yum install -y pcs fence-agents-all
+systemctl enable pcsd
+systemctl start pcsd
+echo "password" | passwd --stdin hacluster
 pcs --version
 rpm -qa | grep pacemaker
-    yum install -y pcs fence-agents-all
+yum install -y pcs fence-agents-all
 ll /dev/disk/by-id/
 pcs stonith create disk_fencing fence_scsi pcmk_host_list="ha-master1 ha-master2" pcmk_monitor_action="metadata" pcmk_reboot_action="off" devices="ata-VBOX_HARDDISK_VB3b231f75-8fa59950" meta provides="unfencing"
 pcs stonith create disk_fencing fence_scsi pcmk_host_list="ha-master1 ha-master2" pcmk_monitor_action="metadata" pcmk_reboot_action="off" devices="/dev/disk/by-id/ata-VBOX_HARDDISK_VB3b231f75-8fa59950" meta provides="unfencing"
-    pcs cluster auth ha-master1 ha-master2
-    pcs cluster setup --start --name nfs_cluster ha-master1 ha-master2
+pcs cluster auth ha-master1 ha-master2
+pcs cluster setup --start --name nfs_cluster ha-master1 ha-master2
 pcs status
-pcs status 
+pcs status
 pcs stonith create disk_fencing fence_scsi pcmk_host_list="ha-master1 ha-master2" pcmk_monitor_action="metadata" pcmk_reboot_action="off" devices="/dev/disk/by-id/ata-VBOX_HARDDISK_VB3b231f75-8fa59950" meta provides="unfencing"
-pcs stonith show 
-pcs status 
-yum install nfs-utils -y 
-systemctl stop nfs-lock 
-systemctl diasble nfs-lock 
-systemctl disable nfs-lock 
-fdisk 
-fdisk  -l 
-fdisk /dev/sdb 
-partprobe 
-mkfs.xfs /dev/sdb1 
+pcs stonith show
+pcs status
+yum install nfs-utils -y
+systemctl stop nfs-lock
+systemctl diasble nfs-lock
+systemctl disable nfs-lock
+fdisk
+fdisk  -l
+fdisk /dev/sdb
+partprobe
+mkfs.xfs /dev/sdb1
 mkdir /nfsshare
 pcs resource create nfsshare Filesystem device=/dev/sdb1 directory=/nfsshare fstype=xfs --group nfsgrp
 cat /etc/group| grep nfs
 pcs resource create nfsd nfsserver nfs_shared_infodir=/nfsshare/nfsinfo --group nfsgrp
-pcs resource create nfsroot exportsfs clientspec="192.168.77.0/24" options=rw,sync,no_root_squash directory=/nfsshare fsid=0 --group nfsgrp 
-pcs resource create nfsroot exportfs clientspec="192.168.77.0/24" options=rw,sync,no_root_squash directory=/nfsshare fsid=0 --group nfsgrp 
+pcs resource create nfsroot exportsfs clientspec="192.168.77.0/24" options=rw,sync,no_root_squash directory=/nfsshare fsid=0 --group nfsgrp
+pcs resource create nfsroot exportfs clientspec="192.168.77.0/24" options=rw,sync,no_root_squash directory=/nfsshare fsid=0 --group nfsgrp
 pcs resource create nfsip IPaddr2 ip=192.168.77.200 cidr_netmask=24 --group nfsgrp
-pcs status 
+pcs status
 firewall-cmd --permanent --add-service=nfs
 firewall-cmd --permanent --add-service=mount
 firewall-cmd --permanent --add-service=mountd
 firewall-cmd --permanent --add-service=rpc-bind
 firewall-cmd --reload
-pcs status 
+pcs status
 pcs his
-history 
-history | cut -c 8- 
-pcs status 
+history
+history | cut -c 8-
+pcs status
 pcs cluster start --all
-pcs status 
+pcs status
 pcs status --full
 pcs cluster start --all
 pcs status --full
-pcs resource standards 
+pcs resource standards
 systemctl status pcsd
 yum install -y pacemaker pcs psmisc policycoreutils-python
-pcs status 
+pcs status
 pcs resource enable nfsshare
-pcs status 
+pcs status
 shutdown -r now
 pcs status --full
 systemctl status pcsd
 pcs cluster start --all
 pcs status --full
-pcs cluster stop 
+pcs cluster stop
 pcs cluster start
 pcs status --full
-ip addr show 
+ip addr show
 pcs cluster\ enable --all
 pcs cluster enable --all
 pcs status --full
-yum install pacemaker pcs resource-agents 
+yum install pacemaker pcs resource-agents
 systemctl status pcsd
 pcs status
 pcs property set no-quorum-policy=ignore
@@ -86,8 +86,8 @@ pcs property set stonith-enabled=false
 pcs status
 pcs cluster start
 pcs status
-ip addr show 
-pcs cluster stop 
-history 
+ip addr show
+pcs cluster stop
+history
 history | cut -c 8-
 history | cut -c 8- > /vagrant/history/ha-master1-linuxtechi-tutorial-pacemaker-nfs-shared-storage.txt

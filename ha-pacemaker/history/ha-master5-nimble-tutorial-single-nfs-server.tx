@@ -1,0 +1,31 @@
+yum upgrade -y 
+yum install nfs-utils*
+cat /etc/sysconfig/nfs 
+systemctl enable nfs-server
+systemctl start  nfs-server
+ps aux | grep nfs
+vi /etc/sysconfig/nfs 
+systemctl restart nfs-server
+systemctl disable firewalld 
+systemctl stop firewalld 
+systemctl status nfs-server
+ps aux | grep nfs
+ps aux | grep nfs | nl 
+shutdown -r now
+df -h
+mkdir /nimblenfs
+vi /etc/exports
+exportfs -s
+exportfs 
+cat /etc/fstab 
+cat /etc/exports
+systemctl restart nfs-server
+tail -f /var/log/*
+vi /etc/exports
+systemctl restart nfs-server
+cat /etc/exports
+df -h
+ls /nimblenfs/nfsometer_runroot_ha-node1/
+history 
+history | cut -c 8-
+history | cut -c 8- > /vagrant/history/ha-master5-nimble-tutorial-single-nfs-server.tx

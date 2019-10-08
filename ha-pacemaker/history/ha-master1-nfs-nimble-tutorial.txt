@@ -1,29 +1,54 @@
-fdisk -l
-mkfs.xfs /dev/sdb
-mkdir /nfsshare
-mount -t xfs /dev/sdb /nfsshare/
-ls /nfsshare/
-df -h
-umount /nfsshare/
+# both nodes
 
-fdisk -l
 yum install -y nfs-utils.x86_64 libnfsidmap.x86_64 iscsi-initiator-utils.x86_64 device-mapper.x86_64 device-mapper-multipath.x86_64 pcs.x86_64
 yum install -y pcs fence-agents-all
 yum upgrade -y
 
-vi /etc/hosts
-passwd hacluster
-systemctl stop pcsd
+cat >> /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.77.11   ha-master1
+192.168.77.12   ha-master2
+192.168.77.13   ha-master3
+192.168.77.200  ha-master
+
+echo password | passwd --stdin hacluster
 systemctl stop pcsd
 systemctl start pcsd
 systemctl enable pcsd
 systemctl status pcsd
+
+
 systemctl stop firewalld
 systemctl status firewalld
 systemctl disable firewalld
 
-pcs cluster auth ha-master1 ha-master2
-pcs cluster setup --start --name nfsserver ha-master1 ha-master2
+# only one node
+
+fdisk -l
+
+parted -s /dev/sdb mklabel gpt
+parted -s /dev/sdb mkpart ncnfscluster xfs 0% 100%
+
+mkfs.xfs /dev/sdb1
+fdisk -l
+
+mkdir /nfsshare
+mount -t xfs /dev/sdb1 /nfsshare/
+ls /nfsshare/
+df -h
+mkdir /nfsshare/test
+rmdir /nfsshare/test
+umount /nfsshare/
+
+# reload partition table on the second node
+
+partprobe
+
+# only one node
+
+pcs cluster auth ha-master1 ha-master2 ha-master3
+pcs cluster setup --start --name nfsserver ha-master1 ha-master2 ha-master3
 pcs cluster enable --all
 pcs cluster status
 
@@ -33,9 +58,12 @@ pcs resource defaults resource-stickiness=100
 
 pcs cluster status
 pcs resource create nfsclustervip IPaddr2 ip=192.168.77.200 cidr_netmask=24 --group nimblenfs
-pcs resource create nfsclustershare ocf:heartbeat:Filesystem device=/dev/sdb directory=/nfscluster fstype=xfs options="_netdev,noatime,nodiratime" fast_stop="no" force_unmount="safe" op stop on-fail=stop timeout=30 op monitor on-fail=stop timeout=30 OCF_CHECK_LEVEL=10 --group nimblenfs
+pcs resource create nfsclustershare ocf:heartbeat:Filesystem device=/dev/sdb1 directory=/nfscluster fstype=xfs options="_netdev,noatime,nodiratime" fast_stop="no" force_unmount="safe" op stop on-fail=stop timeout=30 op monitor on-fail=stop timeout=30 OCF_CHECK_LEVEL=10 --group nimblenfs
 pcs resource create nfsclusterdaemon nfsserver nfs_shared_infodir=/nfsshare/nfsinfo nfs_no_notify=true nfsd_args=32 --group nimblenfs
 pcs resource create nfsclustershare1 exportfs clientspec=192.168.77.0/255.255.255.0 options=async,nohide,rw,no_root_squash directory=/nfscluster fsid=1 --group nimblenfs
-pcs resource create  nfsclusternotify nfsnotify source_host=192.168.77.200 --group nimblenfs
+pcs resource create nfsclusternotify nfsnotify source_host=192.168.77.200 --group nimblenfs
 pcs resource show
 pcs cluster status
+
+#pcs resource delete nfsclustershare1
+#pcs resource create nfsclustershare1 exportfs clientspec=192.168.77.0/255.255.255.0 options=sync,nohide,rw,no_root_squash directory=/nfscluster fsid=1 --group nimblenfs
